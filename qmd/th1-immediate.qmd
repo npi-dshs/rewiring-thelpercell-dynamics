@@ -1,0 +1,400 @@
+# Th1 — Immediate Post-Exercise
+
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+```
+
+## Data Import
+
+::: infobox
+The base analysis uses the pre-computed Hedges' *g* file for Th1 at *r* = 0.5 (`effect_size/Th1/pre_post/Th1_pre_post_r_050.csv`). Sensitivity analyses can substitute the *r* = 0.3 / 0.4 / 0.6 / 0.7 files in the same folder. The pipeline column names are mapped to the analysis conventions (`VE_g`, `Sex`, `Age`, `BMI`) by `load_es()`.
+:::
+
+```{r th1-data}
+fullData <- load_es("book/data/effect_size/Th1/pre_post/Th1_pre_post_r_050.csv")
+```
+
+## Primary Meta-Analysis
+
+::: infobox
+`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges–Olkin (HE)** τ² estimator and the **Knapp–Hartung** small-sample correction (`hakn = TRUE`). After inspecting the full set,
+**Kostrzewa-Nowak et al. (2019)** was detected as very different across meta-analysis and while not influential on the
+overall effect, its values were unrealistic and brought substantial misleading variance.
+:::
+
+::: panel-tabset
+### Full Modell {meta}
+```{r th1-main-meta_1}
+# Meta-analysis on all arms
+m1 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", fixed = FALSE,
+                    hakn = TRUE, prediction = TRUE, sm = "SMD")
+print(m1, overall = TRUE)
+```
+
+### Adapted Model {meta}
+
+::: {.callout-caution}
+Kostrzewa-Nowak et al. (2019) removed (unrealistic values / misleading variance); re-fit
+:::
+
+```{r th1-main-meta_2}
+fullData <- drop_kostrzewa19(fullData)
+m1 <- meta::metagen(g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", hakn = TRUE,
+                    prediction = TRUE, sm = "SMD", fixed = FALSE)
+print(m1, overall = TRUE)
+```
+
+### Adapted Model {metafor}
+
+```{r th1-main-metafor}
+metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
+             method = "HE", test = "knha")
+```
+:::
+
+## Outlier Detection
+
+::: infobox
+Leave-one-out standardised residuals are computed via `metaoutliers()`, which is passed the **variance** (`m1$seTE^2`). Studies with \|*z*\| \> 3 are flagged as outliers; \|*z*\| \> 1.96 warrants inspection.
+:::
+
+```{r th1-outliers}
+outlier <- metaoutliers(y = m1$TE, s2 = m1$seTE^2, model = "RE")
+stdres <- outlier$std.res
+```
+
+```{r}
+#| label: tbl-th1-imm-resid
+#| tbl-cap: "Standardised residuals"
+fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
+```
+
+```{r th1-outliers-plot}
+plot_stdres(stdres)
+```
+
+::: {.callout-important}
+No outcome has standardized residuals above 3 or below -3.
+:::
+
+
+
+## Funnel Plot & Influential Cases
+
+::: infobox
+The contour-enhanced funnel plot shows study estimates against their standard errors; shaded regions mark significance zones (α = 0.10, 0.05, 0.01). The dfbetas diagnostic from `metafor::rma.mv()` identifies **influential cases** — distinct from statistical outliers and not necessarily excluded.
+:::
+
+```{r th1-funnel}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+funnel_ce(m1)
+```
+
+```{r}
+#| label: tbl-th1-imm-dfbetas
+#| tbl-cap: "DFBETAS influence diagnostics"
+overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
+df_betas <- dfbetas(overall_metafor)
+fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+```
+
+::: notebox
+One value was below −1 and one above 1, so both were identified as influential cases. However, neither is an outlier (Kostrzewa-Nowak & Nowak (2020a)a and Tsubakihara et al. (2012)). Accordingly, all outcomes are retained, and the sources of heterogeneity are examined in the moderator analysis.
+:::
+
+## Forest Plot
+
+```{r th1-forest}
+#| fig-width: 8
+#| fig-height: 7
+#| out-width: 100%
+forest_main(m1, xlim = c(-2, 5))
+```
+
+## Asymmetry Test
+
+::: infobox
+Egger's regression test (`method = "linreg"`) evaluates funnel asymmetry as a proxy for small-study/publication effects (one-tailed, *p* \< .10). Where asymmetry is suggested, a trim-and-fill analysis estimates potentially missing studies.
+:::
+
+::: {.panel-tabset}
+
+### Egger´s regression test
+```{r th1-egger}
+metabias(m1, method = "linreg")
+```
+
+### Trim and Fill
+```{r th1-trim_fill}
+# Trim-and-fill
+res <- metafor::rma(yi = g, vi = V_g, data = fullData, method = "HE")
+taf <- metafor::trimfill(res)
+print(taf)
+```
+
+::: {.callout-note}
+# No missing studies
+:::
+:::
+
+## Moderator Analyses
+
+::: {.panel-tabset}
+
+### Risk of Bias
+
+::: infobox
+Subgroup analysis by overall RoB rating tests whether study quality moderates the pooled effect; the between-subgroup statistic (*Q_b*) indicates whether subgroup means differ.
+:::
+
+#### Model
+```{r th1-mod-rob}
+m1mod <- update(m1, subgroup = RoB, print.subgroup.name = TRUE, fixed = FALSE)
+print(m1mod, overall = FALSE)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+
+#### Forrestplot
+```{r th1-mod-rob-forest}
+#| fig-width: 10
+#| fig-height: 13
+#| out-width: 100%
+forest_sub(m1mod, xlim = c(-2, 5))
+```
+
+### Staining
+
+```{r th1-mod-staining}
+m_staining <- update(m1, subgroup = staining, print.subgroup.name = TRUE, fixed = FALSE)
+print(m_staining, overall = FALSE)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+
+### Sex
+
+#### Model
+```{r th1-mod-sex}
+m_sex <- update(m1, subgroup = sex, print.subgroup.name = TRUE, fixed = FALSE)
+print(m_sex, overall = FALSE)
+```
+
+::: {.callout-important}
+Significant results but 14 vs 1 vs 2
+:::
+
+#### Forrest Plot
+```{r th1-mod-sex-forest}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+forest_sub(m_sex, xlim = c(-2, 5))
+```
+
+### Intensity
+```{r th1-mod-intensity}
+# Exclude arms that do not report 'intensity' so they are not counted by default
+fullData_bis <- fullData |> dplyr::filter(!intensity == "")
+m1_c <- meta::metagen(g, seTE = SE_g, data = fullData_bis, studlab = paste(Study),
+                      random = TRUE, method.tau = "HE", hakn = TRUE,
+                      prediction = TRUE, sm = "SMD", fixed = FALSE)
+m_int <- update(m1_c, subgroup = intensity, print.subgroup.name = TRUE, fixed = FALSE)
+print(m_int, overall = FALSE)
+```
+
+::: {.callout-important}
+Significant results
+:::
+
+#### Forrest Plot
+```{r th1-mod-intensity-forest}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+forest_sub(m_int, xlim = c(-2, 5))
+```
+
+### Continuous Moderators (Meta-Regression)
+
+::: infobox
+Continuous moderators are tested via weighted meta-regression (`metareg()`). A significant slope indicates the moderator explains part of the between-study heterogeneity (τ²); bubble plots show the fitted line with 95% CI.
+:::
+
+::: {.panel-tabset}
+
+#### Age
+```{r th1-mr-age}
+m1mr <- metareg(m1, age); summary(m1mr)   # Not significant
+```
+::: {.callout-note}
+Not significant
+:::
+
+```{r th1-mr-age-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m1mr, "age", "Age (years)")
+```
+
+#### BMI
+```{r th1-mr-bmi}
+m2mr <- metareg(m1, bmi); summary(m2mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+```{r th1-mr-bmi-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m2mr, "bmi", "BMI (kg/m²)")
+```
+
+#### Duration
+```{r th1-mr-duration}
+m3mr <- metareg(m1, duration); summary(m3mr)
+```
+
+::: {.callout-important}
+Significant
+:::
+
+```{r th1-mr-duration-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m3mr, "duration", "Duration (min)")
+```
+
+#### Dose
+```{r th1-mr-dose}
+m4mr <- metareg(m1, dose); summary(m4mr)
+```
+
+::: {.callout-important}
+Significant — collinear with duration
+:::
+
+```{r th1-mr-dose-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m4mr, "dose", "Dose")
+```
+
+#### IFN
+```{r th1-mr-ifn}
+m6mr <- metareg(m1, IFN); summary(m6mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL-4
+```{r th1-mr-il4}
+m7mr <- metareg(m1, IL_4); summary(m7mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL-6
+```{r th1-mr-il6}
+m8mr <- metareg(m1, IL_6); summary(m8mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL_10
+```{r th1-mr-il10}
+m9mr <- metareg(m1, IL_10); summary(m9mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL_2
+```{r th1-mr-il2}
+m10mr <- metareg(m1, IL_2); summary(m10mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+:::
+
+:::
+
+## Multivariate Models
+
+::: infobox
+Multivariate meta-regression tests interactions between candidate moderators. Neither model below yields independent predictors.
+:::
+
+::: {.panel-tabset}
+
+### Intensity * Duration
+```{r th1-multivariate_1}
+rma(yi = g, vi = V_g, mods = ~ intensity * duration, data = fullData,
+    slab = paste(Study), method = "HE", test = "knha")
+```
+::: {.callout-note}
+Not significant
+:::
+
+### IFN * IL_2
+```{r th1-multivariate_2}
+rma(yi = g, vi = V_g, mods = ~ IFN * IL_2, data = fullData,
+    slab = paste(Study), method = "HE", test = "knha")
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+:::
+
+## Interaction Surface (IFN-γ × IL-2)
+
+```{r th1-heatmap}
+#| fig-width: 9
+#| fig-height: 7
+#| out-width: 90%
+# Clean data (finite values only)
+fullData_clean <- fullData |>
+  dplyr::filter(is.finite(IFN), is.finite(IL_2), is.finite(g), is.finite(V_g))
+
+model <- metafor::rma(yi = g, vi = V_g, mods = ~ IFN * IL_2,
+                      data = fullData_clean, method = "HE", test = "knha")
+
+grid <- expand.grid(
+  IFN  = seq(min(fullData_clean$IFN), max(fullData_clean$IFN), length.out = 50),
+  IL_2 = seq(min(fullData_clean$IL_2), max(fullData_clean$IL_2), length.out = 50)
+)
+X <- model.matrix(~ IFN * IL_2, data = grid)
+grid$pred <- predict(model, newmods = X[, -1])$pred
+
+ggplot(grid, aes(x = IFN, y = IL_2, fill = pred)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  labs(x = "IFN-γ", y = "IL-2", fill = "Hedges' g")
+```

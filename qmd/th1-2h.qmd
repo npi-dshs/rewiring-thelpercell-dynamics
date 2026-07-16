@@ -1,0 +1,93 @@
+# Th1 — ~2 h Post-Exercise
+
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+```
+
+## Data Import
+
+::: infobox
+The ~2 h window (`effect_size/Th1/pre_post+2h/Th1_pre_post+2h_r_050.csv`) contains few arms and no cytokine/BMI coverage, so it is reported for the main analysis, outlier check, funnel, forest, and asymmetry only — no moderator modelling is possible. No study is excluded a priori in this window.
+:::
+
+```{r th1-2h-data}
+fullData <- load_es("book/data/effect_size/Th1/pre_post+2h/Th1_pre_post+2h_r_050.csv")
+```
+
+## Primary Meta-Analysis
+
+::: panel-tabset
+### {meta}
+```{r th1-2h-main-meta}
+m1 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", fixed = FALSE,
+                    hakn = TRUE, prediction = TRUE, sm = "SMD")
+print(m1, overall = TRUE)
+```
+
+### {metafor}
+```{r th1-2h-main-metafor}
+metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
+             method = "HE", test = "knha")
+```
+:::
+
+## Outlier Detection
+
+```{r th1-2h-outliers}
+outlier <- metaoutliers(y = m1$TE, s2 = m1$seTE^2, model = "RE")
+stdres <- outlier$std.res
+```
+
+```{r}
+#| label: tbl-th1-2h-resid
+#| tbl-cap: "Standardised residuals"
+fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
+```
+
+```{r th1-2h-outliers-plot}
+plot_stdres(stdres)
+```
+
+
+::: {.callout-note}
+No outcome has standardized residuals above 3 or below -3.
+:::
+
+
+## Funnel Plot & Influential Cases
+
+```{r th1-2h-funnel}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+funnel_ce(m1)# , ref = 0.99 , xlim = c(-1.5, 4), ylim = c(0.7, 0))
+
+```
+
+```{r}
+#| label: tbl-th1-2h-dfbetas
+#| tbl-cap: "DFBETAS influence diagnostics"
+overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
+df_betas <- dfbetas(overall_metafor)
+fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+```
+
+::: notebox
+One value below −1 and one above 1 were identified as influential cases. Neither is an outlier (Kostrzewa-Nowak & Nowak (2020a)a and Tsubakihara et al. (2012)); all outcomes are retained.
+:::
+
+## Forest Plot
+
+```{r th1-2h-forest}
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: 100%
+forest_main(m1)
+
+## Asymmetry Test
+
+::: warnbox
+**Note:** the number of studies (*k* = 5) is too small to reliably test for small-study effects (minimum *k* = 10; Borenstein et al., 2009). No Egger's test or trim-and-fill is performed.
+:::

@@ -1,0 +1,270 @@
+# Th1 — 17 h Post-Exercise
+
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+```
+
+## Data Import
+
+```{r th1-17h-data}
+fullData <- load_es("book/data/effect_size/Th1/pre_post17h/Th1_pre_post17h_r_050.csv")
+```
+
+## Primary Meta-Analysis
+
+::: infobox
+As in the immediate window, **Kostrzewa-Nowak et al. (2019)** is removed before pooling. Outlier detection then flags **Steensberg et al. (2001)**, which is both an outlier and an influential case and is therefore withdrawn from the downstream analyses (`m2_1`).
+:::
+
+::: panel-tabset
+### {meta}
+```{r th1-17h-main_1}
+m2 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", fixed = FALSE,
+                    hakn = TRUE, prediction = TRUE, sm = "SMD")
+print(m2, overall = TRUE)
+```
+### {metafor}
+```{r th1-17h-main_2}
+metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
+             method = "HE", test = "knha")
+```
+
+### Adapted Modell {meta}
+
+
+::: {.callout-caution}
+Re-Fit: Removed Konstrezw-Nowak et al. (2019)
+:::
+
+```{r th1-17h-main_3}
+fullData <- drop_kostrzewa19(fullData)
+m2 <- meta::metagen(g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", hakn = TRUE,
+                    prediction = TRUE, sm = "SMD", fixed = FALSE)
+print(m2, overall = TRUE)
+```
+:::
+
+## Outlier Detection
+
+```{r th1-17h-outliers}
+outlier <- metaoutliers(y = m2$TE, s2 = m2$seTE^2, model = "RE")
+stdres <- outlier$std.res
+```
+
+```{r}
+#| label: tbl-th1-17h-resid
+#| tbl-cap: "Standardised residuals"
+fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
+```
+
+```{r th1-17h-outliers-plot}
+plot_stdres(stdres)
+```
+
+
+::: {.callout-note}
+One outcome has standardized residuals below -3 (Steensberg et al. (2001)).
+:::
+
+
+## Funnel Plot & Influential Cases
+
+```{r th1-17h-funnel}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+funnel_ce(m2)
+```
+
+```{r}
+#| label: tbl-th1-17h-dfbetas
+#| tbl-cap: "DFBETAS influence diagnostics"
+overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
+df_betas <- dfbetas(overall_metafor)
+fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+```
+
+::: {.callout-caution}
+Steensberg et al. (2001) is < -1 (influential) and also an outlier -> withdrawn.
+:::
+
+### Adapted Model
+```{r th1-17h-refit}
+# Withdraw the outlier/influential case and re-fit
+fullData_bis <- fullData |> dplyr::filter(!Study == "Steensberg et al. (2001)")
+m2_1 <- meta::metagen(g, seTE = SE_g, data = fullData_bis, studlab = paste(Study),
+                      random = TRUE, method.tau = "HE", hakn = TRUE,
+                      prediction = TRUE, sm = "SMD", fixed = FALSE)
+print(m2_1, overall = TRUE)
+```
+
+```{r th1-17h-funnel2}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+funnel_ce(m2_1, ref = 1.84, xlim = c(-1, 4), ylim = c(0.8, 0))
+```
+
+## Forest Plot
+
+```{r th1-17h-forest}
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: 100%
+forest_main(m2_1, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
+```
+
+## Asymmetry Test
+
+::: {.panel-tabset}
+
+### Egger´s regression test
+```{r th1-17h-egger}
+metabias(m2_1, method = "linreg")
+```
+
+### Trim and Fill
+```{r th1-trim_fill}
+# Trim-and-fill
+res <- metafor::rma(yi = g, vi = V_g, data = fullData_bis, method = "HE")
+taf <- metafor::trimfill(res)
+print(taf)
+```
+::: {.callout-note}
+# No missing studies
+:::
+
+:::
+## Moderator Analyses
+
+::: {.panel-tabset}
+### Risk of Bias
+#### Model
+```{r th1-17h-mod-rob}
+m1mod <- update(m2_1, subgroup = RoB, print.subgroup.name = TRUE, fixed = FALSE)
+print(m1mod, overall = FALSE)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+
+#### Forrest Plot
+```{r th1-17h-mod-rob-forest}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+forest_sub(m1mod, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
+```
+
+::: notebox
+**Intensity:** all retained arms share the same intensity, so no intensity subgroup analysis is performed.
+:::
+
+
+### Continuous Moderators (Meta-Regression)
+::: {.panel-tabset}
+#### Age
+```{r th1-17h-mr-age}
+m1mr <- metareg(m2_1, age); summary(m1mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+```{r th1-17h-mr-age-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m1mr, "age", "Age (years)")
+```
+
+#### BMI
+```{r th1-17h-mr-bmi}
+m2mr <- metareg(m2_1, bmi); summary(m2mr)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+```{r th1-17h-mr-bmi-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m2mr, "bmi", "BMI (kg/m²)")
+```
+
+#### Duration
+```{r th1-17h-mr-duration}
+m3mr <- metareg(m2_1, duration); summary(m3mr)
+```
+::: {.callout-note}
+Not significant results
+:::
+
+#### Dose
+```{r th1-17h-mr-dose}
+m4mr <- metareg(m2_1, dose); summary(m4mr)
+```
+::: {.callout-note}
+Not significant results
+:::
+
+#### IFN
+```{r th1-17h-mr-ifn}
+m6mr <- metareg(m2_1, IFN); summary(m6mr)
+```
+::: {.callout-note}
+Not significant results
+:::
+
+#### IL_4
+```{r th1-17h-mr-il4}
+m7mr <- metareg(m2_1, IL_4); summary(m7mr)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+
+#### IL_6
+```{r th1-17h-mr-il6}
+m8mr <- metareg(m2_1, IL_6); summary(m8mr)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+
+#### IL_10
+```{r th1-17h-mr-il10}
+m9mr <- metareg(m2_1, IL_10); summary(m9mr)
+```
+::: {.callout-note}
+Not significant results
+:::
+#### IL_2
+```{r th1-17h-mr-il2}
+m10mr <- metareg(m2_1, IL_2); summary(m10mr)
+```
+::: {.callout-note}
+Not significant results
+:::
+
+:::
+:::
+
+## Multivariate Models
+
+```{r th1-17h-multivariate}
+rma(yi = g, vi = V_g, mods = ~ IFN * IL_2, data = fullData_bis,
+    slab = paste(Study), method = "HE", test = "knha")
+```
+
+::: {.callout-note}
+Not significant
+:::

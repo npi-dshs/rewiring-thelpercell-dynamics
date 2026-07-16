@@ -1,0 +1,128 @@
+project:
+  type: book
+  output-dir: _book
+  execute-dir: project
+  resources:
+    - R/robins_i_v4.1.R
+    - data/results_rob.xlsx
+    - data/summary_formulae.pdf
+
+book:
+  title: "Rewiring Immune Regulation Through Acute Exercise"
+  subtitle: "A Systematic Review and Meta-Analysis on TH1 and TH2 Cell Responses - Documenation"
+  author:
+    - name: "Miriam Ringleb"
+      affiliation:
+        - ref: cgn
+        - ref: jena-prev
+        - ref: jena-sports
+      orcid: "https://orcid.org/0009-0009-0833-4367"
+    - name: "Finn Dreisigacker"
+      affiliation:
+      - ref: cgn
+      orcid: "https://orcid.org/0009-0008-6419-0751, "
+    - name: "Florian Javelle"
+      affiliation:
+      - ref: cgn 
+      orcid: "https://orcid.org/0000-0003-4240-2588"
+
+  date: "2026-06-01"
+  search: true
+  page-footer: "Rewiring Immune Regulation Through Acute Exercise - Documentation"
+  chapters:
+    - index.qmd
+    - qmd/formulae.qmd
+    - qmd/workspace.qmd
+    - qmd/risk-of-bias.qmd
+    - part: "Th1"
+      chapters:
+        - qmd/th1-immediate.qmd
+        - qmd/th1-2h.qmd
+        - qmd/th1-17h.qmd
+    - part: "Th2"
+      chapters:
+        - qmd/th2-immediate.qmd
+        - qmd/th2-2h.qmd
+        - qmd/th2-17h.qmd
+    - part: "Th1/Th2 Ratio"
+      chapters:
+        - qmd/ratio-immediate.qmd
+        - qmd/ratio-2h.qmd
+        - qmd/ratio-17h.qmd
+
+affiliations:
+  - id: cgn
+    name: "NeuroPsychoImmunology research unit, Dept. for Molecular and Cellular Sports Medicine, Institute of Cardiovascular Research and Sports Medicine, German Sport University Cologne, Cologne, Germany"
+  - id: jena-prev
+    name: "Center for Interdisciplinary Prevention of Diseases related to Professional Activities, Friedrich-Schiller-University Jena, Jena, Germany"
+  - id: jena-sports
+    name: "Department of Sports Medicine and Health Promotion, Friedrich-Schiller-University Jena, Jena, Germany"
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  cache: false
+  freeze: false
+  fig-align: center
+  fig-dpi: 600
+
+format:
+  html:
+    theme:
+      light: [yeti, custom.scss]
+    mainfont: "Inter"
+    monofont: "Fira Code"
+    fontsize: 15px
+    linestretch: 1.75
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    code-tools: true
+  pdf:
+    documentclass: scrbook
+    papersize: a4
+    geometry: "left=2.2cm,right=2.2cm,top=2.2cm,bottom=2.2cm"
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    fontsize: 10pt
+    linestretch: 1.2
+    fig-pos: "H"
+    include-in-header:
+      - text: |
+          \usepackage{float}
+          \usepackage{booktabs}
+          \usepackage[most]{tcolorbox}
+          \usepackage{caption}
+          \captionsetup{font=small, labelfont=bf}
+
+          % ---- Custom boxes matching the HTML div classes ----
+          \newtcolorbox{infobox}{%
+            colback  = blue!3!white,
+            colframe = blue!50!black!30,
+            boxrule  = 0.4pt,
+            left = 5pt, right = 5pt, top = 5pt, bottom = 5pt,
+            fontupper = \small,
+            borderline west = {2.5pt}{0pt}{blue!60}
+          }
+          \newtcolorbox{warnbox}{%
+            colback  = orange!4!white,
+            colframe = orange!45,
+            boxrule  = 0.4pt,
+            left = 5pt, right = 5pt, top = 5pt, bottom = 5pt,
+            fontupper = \small,
+            borderline west = {2.5pt}{0pt}{orange!70}
+          }
+          \newtcolorbox{notebox}{%
+            colback  = gray!5,
+            colframe = gray!40,
+            boxrule  = 0.4pt,
+            left = 5pt, right = 5pt, top = 5pt, bottom = 5pt,
+            fontupper = \small
+          }
+
+bibliography: references.bib
+biblio-style: apa.csl
+biblio-title: "References"
+reference-section-title: "References"

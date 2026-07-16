@@ -1,0 +1,58 @@
+/*-- scss:rules --*/
+
+body { color: #1E1E1E; }
+
+h1, h2, h3, h4 { letter-spacing: 0.01em; color: #1E1E1E; }
+
+.infobox {
+  background: #F0F6FF;
+  border: 1px solid #C7DEFF;
+  border-left: 4px solid #0078D4;
+  border-radius: 4px;
+  padding: 0.9em 1.3em;
+  margin: 1.1em 0;
+  color: #2B2B2B;
+  font-size: 0.93em;
+}
+.infobox strong { color: #0053A0; }
+
+.warnbox {
+  background: #FFF8F0;
+  border: 1px solid #FFD9B3;
+  border-left: 4px solid #CA5010;
+  border-radius: 4px;
+  padding: 0.9em 1.3em;
+  margin: 1.1em 0;
+  color: #2B2B2B;
+  font-size: 0.93em;
+}
+.warnbox strong { color: #8B3A0F; }
+
+.notebox {
+  background: #F7F7F7;
+  border: 1px solid #E2E2E2;
+  border-left: 4px solid #9AA0A6;
+  border-radius: 4px;
+  padding: 0.9em 1.3em;
+  margin: 1.1em 0;
+  color: #2B2B2B;
+  font-size: 0.93em;
+}
+
+hr { border: none; border-top: 1px solid #E0E0E0; margin: 2em 0; }
+
+/* Consistent figure styling */
+.quarto-figure { margin: 1.5em auto; text-align: center; }
+.quarto-figure img, .cell-output-display img {
+  max-width: 100%;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 6px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.quarto-figure figcaption {
+  font-size: 0.88em;
+  color: #555;
+  margin-top: 0.4em;
+}

@@ -1,0 +1,15 @@
+# Background {.unnumbered}
+
+<!-- ::: warnbox
+**Generative artificial intelligence tools were used in the preparation of this document, particularly for language refinement, document structuring, and the development and revision of code. All content, analyses, results, and interpretations were critically reviewed, validated, and are the sole responsibility of the author.**
+::: -->
+
+This site documents the complete analysis pipeline behind our systematic review and meta-analysis of T-helper-cell responses to acute exercise. For each outcome — **Th1**, **Th2**, and the **Th1/Th2 ratio** — the chapters reproduce the random-effects meta-analysis across three post-exercise time windows (immediate, ~2 h, and ~17 h), together with outlier and influence diagnostics, small-study/publication-bias checks, and moderator and meta-regression analyses. Study quality is appraised with ROBINS-I, and the underlying effect-size computations are documented throughout. The raw data and the full analysis script are available below for reproducibility.
+
+## Downloads {.unnumbered}
+
+| Resource | File |
+|:---------|:-----|
+| Raw data — effect-size computation | [`effect_computation_Th1Th2.xlsx`](data/effect_size/effect_computation_Th1Th2.xlsx){download="effect_computation_Th1Th2.xlsx"} |
+| Analysis script | [`meta_Th1Th2.R`](R/meta_Th1Th2.R){download="meta_Th1Th2.R"} |
+| Summary Formulae | [`formulae.pdf`](data/summary_formulae.pdf){download="formulae.pdf"} |

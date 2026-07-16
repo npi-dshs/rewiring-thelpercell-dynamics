@@ -1,0 +1,91 @@
+# Th2 — ~2 h Post-Exercise
+
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+```
+
+## Data Import
+
+::: infobox
+The ~2 h window (`effect_size/Th2/pre_post+2h/Th2_pre_post+2h_r_050.csv`) is reported for the main analysis, outlier check, funnel, and forest only; the limited data do not support moderator modelling. No study is excluded a priori.
+:::
+
+```{r th2-2h-data}
+fullData <- load_es("book/data/effect_size/Th2/pre_post+2h/Th2_pre_post+2h_r_050.csv")
+```
+
+## Primary Meta-Analysis
+
+::: panel-tabset
+### {meta}
+```{r th2-2h-main-meta}
+m3 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", fixed = FALSE,
+                    hakn = TRUE, prediction = TRUE, sm = "SMD")
+print(m3, overall = TRUE)
+```
+
+### {metafor}
+```{r th2-2h-main-metafor}
+metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
+             method = "HE", test = "knha")
+```
+:::
+
+## Outlier Detection
+
+```{r th2-2h-outliers}
+outlier <- metaoutliers(y = m3$TE, s2 = m3$seTE^2, model = "RE")
+stdres <- outlier$std.res
+```
+
+```{r}
+#| label: tbl-th2-2h-resid
+#| tbl-cap: "Standardised residuals"
+fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
+```
+
+```{r th2-2h-outliers-plot}
+plot_stdres(stdres)
+```
+
+::: {.callout-note}
+One outcome has standardized residuals around -2 (Kostrzewa-Nowak et al. (2019)).
+:::
+
+## Funnel Plot & Influential Cases
+
+```{r th2-2h-funnel}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+funnel_ce(m3)# , ref = 0.3214, xlim = c(-1, 2), ylim = c(0.7, 0))
+```
+
+```{r}
+#| label: tbl-th2-2h-dfbetas
+#| tbl-cap: "DFBETAS influence diagnostics"
+overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
+df_betas <- dfbetas(overall_metafor)
+fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+```
+
+::: {.callout-note}
+No influential case.
+:::
+
+## Forest Plot
+
+```{r th2-2h-forest}
+#| fig-width: 8 
+#| fig-height: 4
+#| out-width: 100%
+forest_main(m3, left = "Lower at post+2h", right = "Higher at post+2h") # ,xlim = c(-4, 3))
+```
+
+## Asymmetry Test
+
+::: warnbox
+**Note:** the number of studies in this window is too small to reliably test for small-study effects (minimum *k* = 10). No Egger's test or trim-and-fill is performed.
+:::

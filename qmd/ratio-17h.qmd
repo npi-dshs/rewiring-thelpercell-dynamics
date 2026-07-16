@@ -1,0 +1,270 @@
+# Th1/Th2 Ratio — 17 h Post-Exercise
+
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+```
+
+## Data Import
+
+```{r ratio-17h-data}
+fullData <- load_es("book/data/effect_size/Ratio/pre_post17h/Ratio_pre_post17h_r_050.csv")
+```
+
+## Primary Meta-Analysis
+
+::: infobox
+**Kostrzewa-Nowak et al. (2019)** is removed before pooling and the model re-fitted.
+:::
+
+::: panel-tabset
+### {meta}
+```{r ratio-17h-main-meta}
+m6 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", fixed = FALSE,
+                    hakn = TRUE, prediction = TRUE, sm = "SMD")
+print(m6, overall = TRUE)
+```
+
+### {metafor}
+```{r ratio-17h-main-metafor}
+metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
+             method = "HE", test = "knha")
+```
+
+### Adapted Model {meta}
+```{r ratio-17h-main-adapted}
+fullData <- drop_kostrzewa19(fullData)
+m6 <- meta::metagen(g, seTE = SE_g, data = fullData, studlab = paste(Study),
+                    random = TRUE, method.tau = "HE", hakn = TRUE,
+                    prediction = TRUE, sm = "SMD", fixed = FALSE)
+print(m6, overall = TRUE)
+```
+:::
+
+## Outlier Detection
+
+```{r ratio-17h-outliers}
+outlier <- metaoutliers(y = m6$TE, s2 = m6$seTE^2, model = "RE")
+stdres <- outlier$std.res
+```
+
+```{r}
+#| label: tbl-ratio-17h-resid
+#| tbl-cap: "Standardised residuals"
+fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
+```
+
+```{r ratio-17h-outliers-plot}
+plot_stdres(stdres)
+```
+
+::: {.callout-note}
+No outlier.
+:::
+
+## Funnel Plot & Influential Cases
+
+```{r ratio-17h-funnel}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+funnel_ce(m6)# , ref = 0.6433, xlim = c(-3, 6), ylim = c(2.5, 0))
+```
+
+```{r}
+#| label: tbl-ratio-17h-dfbetas
+#| tbl-cap: "DFBETAS influence diagnostics"
+overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
+df_betas <- dfbetas(overall_metafor)
+fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+```
+
+::: {.callout-note}
+No influential case.
+:::
+
+## Forest Plot
+
+```{r ratio-17h-forest}
+#| fig-width: 12
+#| fig-height: 8
+#| out-width: 100%
+forest_main(m6, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
+```
+
+## Asymmetry Test
+
+```{r ratio-17h-egger}
+metabias(m6, method = "linreg")
+```
+
+::: {.callout-note}
+No asymmetry -> no trim-and-fill
+:::
+
+## Moderator Analyses
+
+::: {.panel-tabset}
+
+### Risk of Bias
+
+#### Model
+```{r ratio-17h-mod-rob}
+m1mod <- update(m6, subgroup = RoB, print.subgroup.name = TRUE, fixed = FALSE)
+print(m1mod, overall = FALSE)
+```
+
+::: {.callout-note}
+Not significant results
+:::
+
+#### Forrest Plot
+```{r ratio-17h-mod-rob-forest}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+forest_sub(m1mod, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
+```
+
+### Intensity
+
+#### Model
+```{r ratio-17h-mod-intensity}
+m2mod <- update(m6, subgroup = intensity, print.subgroup.name = TRUE, fixed = FALSE)
+print(m2mod, overall = FALSE)
+```
+
+::: {.callout-important}
+Significant results but 10 vs 1
+:::
+
+#### Forrest Plot
+```{r ratio-17h-mod-intensity-forest}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+forest_sub(m2mod, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
+```
+
+### Continuous Moderators (Meta-Regression)
+
+::: {.panel-tabset}
+
+#### Age
+```{r ratio-17h-mr-age}
+m1mr <- metareg(m6, age); summary(m1mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+```{r ratio-17h-mr-age-bubble}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: 100%
+bubble_reg(m1mr, "age", "Age (years)")
+```
+
+#### BMI
+```{r ratio-17h-mr-bmi}
+m2mr <- metareg(m6, bmi); summary(m2mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### Duration
+```{r ratio-17h-mr-duration}
+m3mr <- metareg(m6, duration); summary(m3mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### Dose
+```{r ratio-17h-mr-dose}
+m4mr <- metareg(m6, dose); summary(m4mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### MET
+```{r ratio-17h-mr-met}
+# MET is only modelled when the metabolic-equivalent column is present in the
+# effect-size file; the current r = 0.5 export does not include it.
+if ("met" %in% names(fullData)) {
+  m5mr <- metareg(m6, met); summary(m5mr)      # Not significant
+} else {
+  message("No 'met' column in this dataset — MET meta-regression skipped.")
+}
+```
+
+::: {.callout-note}
+Only modelled when the MET column is present; the current *r* = 0.5 export does not include it, so this meta-regression is skipped.
+:::
+
+#### IFN
+```{r ratio-17h-mr-ifn}
+m6mr <- metareg(m6, IFN); summary(m6mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL_4
+```{r ratio-17h-mr-il4}
+m7mr <- metareg(m6, IL_4); summary(m7mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL_6
+```{r ratio-17h-mr-il6}
+m8mr <- metareg(m6, IL_6); summary(m8mr)
+```
+
+::: {.callout-important}
+Significant
+:::
+
+#### IL_10
+```{r ratio-17h-mr-il10}
+m9mr <- metareg(m6, IL_10); summary(m9mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+#### IL_2
+```{r ratio-17h-mr-il2}
+m10mr <- metareg(m6, IL_2); summary(m10mr)
+```
+
+::: {.callout-note}
+Not significant
+:::
+
+:::
+
+:::
+
+## Multivariate Models
+
+```{r ratio-17h-multivariate}
+rma(yi = g, vi = V_g, mods = ~ intensity * duration, data = fullData,
+    slab = paste(Study), method = "HE", test = "knha")
+```
+
+::: {.callout-important}
+Model significant but no independent predictors
+:::

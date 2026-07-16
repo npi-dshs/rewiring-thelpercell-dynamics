@@ -1,0 +1,47 @@
+# Workspace Setup
+
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+```
+
+::: infobox
+All chapters load a shared setup file (`_common.R`) that installs/loads the required packages, sets a consistent global `ggplot2` theme, defines the leave-one-out outlier-detection functions, and exposes small helpers for the standard funnel, forest, and bubble plots used throughout. This keeps every analysis chapter self-contained and reproducible regardless of render order.
+:::
+
+## Packages
+
+```{r show-packages}
+#| eval: false
+requiredlibraries <- c(
+  "metafor", "tidyr", "dplyr", "data.table", "stringr", "readr",
+  "ggplot2", "reshape2", "cowplot", "gridExtra",
+  "forestplot", "metaviz", "meta",
+  "readxl", "patchwork", "scales"
+)
+
+# Install any that are missing, then load all of them.
+missing_packages <- requiredlibraries[
+  !sapply(requiredlibraries, requireNamespace, quietly = TRUE)
+]
+if (length(missing_packages) > 0) install.packages(missing_packages, dependencies = TRUE)
+invisible(lapply(requiredlibraries, library, character.only = TRUE))
+```
+
+## Outlier Detection Functions
+
+::: infobox
+**Custom functions — required for all outlier analyses below.**
+
+The following four functions implement the leave-one-out standardised residual approach described in @hedgesDiagnosticProceduresResearch1985 and @viechtbauerOutlierInfluenceDiagnostics2010. A study is classified as an outlier if its standardised residual exceeds \|3\|; values above \|1.96\| warrant closer inspection. The model (fixed- vs. random-effects) is selected automatically from the robust heterogeneity index *I*r² (\< 30% → fixed-effects, otherwise random-effects). The outlier routine is always passed the **variance** (`seTE^2`) as its `s2` argument.
+:::
+
+```{r show-outlier-functions}
+#| eval: false
+metaoutliers  <- function(y, s2, model) { ... }   # leave-one-out standardised residuals
+metahet.base  <- function(y, s2)        { ... }   # heterogeneity measures (Q, I², τ², robust Ir²)
+tau2.r.solver <- function(w, Qr)        { ... }   # robust τ² (mean-based)
+tau2.m.solver <- function(w, Qm)        { ... }   # robust τ² (median-based)
+```
+
+The full definitions live in `_common.R` and are sourced automatically at the top of every chapter.

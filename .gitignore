@@ -1,0 +1,19 @@
+# Quarto render output & caches
+/_book/
+/.quarto/
+*_files/
+/site_libs/
+**/*.quarto_ipynb
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Office-Sperrdateien
+~$*
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata

@@ -1,0 +1,362 @@
+---
+title: "Summary of Formulae"
+---
+
+## Introduction
+
+Only formulas that were actually used in the calculations are highlighted by placing them in a box to improve readability and to make the key equations easy to identify. Other formulas are included for completeness and conceptual clarity.
+
+\vspace{-0.5cm}
+
+### Notation {.unnumbered}
+
+Per study and time point
+
+-   $n$: sample size
+-   $\tilde{x}, \tilde{y}$: estimated means (approximated from published summary statistics)
+-   $\tilde{s}_x, \tilde{s}_y$ : estimated standard deviations (approximated from published summary statistics)
+-   $m$: median
+-   $q_1, q_3$: 1st and 3rd quartile
+-   $a$: minimum, $b$: maximum
+-   $\Phi^{-1}$: inverse standard normal cumulative distribution function (e.g., R: `qnorm`)
+-   $\rho$: Correlation between Th1 and Th2 measurements
+
+## Data Extraction and Computation Strategy {#sec-strategy}
+
+### Overview
+This analysis requires extracting or computing the mean Th1/Th2 ratio and its associated standard deviation for each study and time point. However, the included studies reported their descriptive statistics in heterogeneous formats. To enable uniform computation of effect sizes, we developed a systematic approach:
+
+1. **Classify how each study reported data** (see @sec-data-types)
+2. **Estimate means and SDs** when not directly reported (see @sec-mean-sd)
+3. **Compute the Th1/Th2 ratio** and its variance (see @sec-ratio)
+4. **Calculate standardized effect sizes** with small-sample correction (see @sec-effect-size)
+
+The **computation table** (see Supplementary Materials) documents which approach (A1, A2, C1, C2, or C3) was applied to each study, providing full methodological transparency.
+
+### Data Reporting Types {#sec-data-types}
+
+Studies fell into two categories based on how Th1 and Th2 values were reported:
+
+**A1: Summary Statistics Directly Reported**
+- Article reported means and standard deviations (or sufficient summary statistics to estimate them)
+- No access to individual participant data
+
+**A2: Raw Data Available**
+- Individual participant-level data were available (either directly from the article or upon request from authors)
+- We computed means, SDs, and participant-level correlations directly from the raw data
+
+### Summary Statistics Estimation Scenarios
+
+When articles reported summary statistics other than means and SDs, we estimated means and SDs using sample-size-adjusted formulas [@wan2014] depending on which statistics were available:
+
+::: {.content-visible when-format="pdf"}
+\begin{table}[!h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Summary Statistics Estimation Scenarios and Corresponding Formulas}
+\label{tab:scenarios}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Scenario} & \textbf{Available Data} & \boldmath{$\bar{x}_{estimated}$} & \boldmath{$s_{estimated}$} \\
+\midrule
+C1 & Min, Max, Med., $n$ & (\ref{eq:c1-mean}) & (\ref{eq:c1-sd}) \\
+C2 & Q1, Med., Q3, $n$ & (\ref{eq:c2-mean}) & (\ref{eq:c2-sd}) \\
+C3 & Mean, SE, $n$ & Direct & (\ref{eq:c3-sd}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+:::
+
+::: {.content-visible when-format="html"}
+| **Scenario** | **Available Data** | $\bar{x}_{estimated}$ | $s_{estimated}$ |
+|:--|:--|:-:|:-:|
+| C1 | Min, Max, Med., $n$ | (1) | (2) |
+| C2 | Q1, Med., Q3, $n$ | (3) | (4) |
+| C3 | Mean, SE, $n$ | Direct | (5) |
+
+: Summary Statistics Estimation Scenarios and Corresponding Formulas {#tbl-scenarios}
+:::
+
+## Estimating mean and SD from median/IQR/range {#sec-mean-sd}
+
+::: {.content-visible when-format="pdf"}
+Table \ref{tab:scenarios} above summarizes the estimation scenarios.
+:::
+
+::: {.content-visible when-format="html"}
+@tbl-scenarios above summarizes the estimation scenarios.
+:::
+
+The detailed formulas for each scenario are presented below, following the methodology of @wan2014.
+
+### Scenario C1: Min + Max + Median + $n$ $(a, m, b, n)$
+
+\begin{equation}
+\boxed{
+\bar{x} \approx \frac{a + 2m + b}{4}
+\tag{1}
+}
+\label{eq:c1-mean}
+\end{equation}
+
+\begin{equation}
+\boxed{
+s \approx \frac{b - a}{2\Phi^{-1}\left(\frac{n-0.375}{n+0.25}\right)}
+\tag{2}
+}
+\label{eq:c1-sd}
+\end{equation}
+
+<!-- ## Scenario C2: Full 5-number summary $(a, q_1, m, q_3, b, n)$
+
+\begin{equation}
+\bar{x} \approx \frac{a + 2q_1 + 2m + 2q_3 + b}{8}
+\tag{3}
+\end{equation} \begin{equation}
+s \approx
+\frac{b-a}{4\Phi^{-1}\left(\frac{n-0.375}{n+0.25}\right)}
++
+\frac{q_3-q_1}{4\Phi^{-1}\left(\frac{0.75n-0.125}{n+0.25}\right)}
+\tag{4}
+\end{equation} -->
+
+### Scenario C2: Median + IQR + $n$ $(q_1, m, q_3, n)$
+
+\begin{equation}
+\boxed{
+\bar{x} \approx \frac{q_1 + m + q_3}{3}
+\tag{3}
+}
+\label{eq:c2-mean}
+\end{equation}
+
+\begin{equation}
+\boxed{
+s \approx \frac{q_3 - q_1}{2\Phi^{-1}\left(\frac{0.75n-0.125}{n+0.25}\right)}
+\tag{4}
+}
+\label{eq:c2-sd}
+\end{equation}
+
+### Scenario C3: Mean, SE
+
+\begin{equation}
+\boxed{
+s = SE \sqrt{n}
+\tag{5}
+}
+\label{eq:c3-sd}
+\end{equation}
+
+<!-- [Notes:]{.underline}
+
+-   *Quartile-based estimators (C3) are typically more robust to outliers than range-based estimators (C1)* [@wan2014].
+
+-   *These formulas assume approximate normality; strong skewness may introduce bias* [@wan2014].
+
+-   *When available, the full 5-number summary (C2) often provides the most stable basis* [@wan2014]. -->
+
+## Mean and Variance of a Ratio {#sec-ratio}
+
+Because several studies did not report raw data, the Th1/Th2 ratio could not be calculated directly. For these studies, we first approximated the mean and standard deviation from the published summary statistics (see @sec-mean-sd). Using the estimated mean and SD, we then computed the Th1/Th2 ratio for studies that did not publish the ratio but provided sufficient information to derive it.
+
+### Calculation of the mean ratio
+
+Let $\tilde{x}_R$ denote the mean Th1/Th2 ratio, let $\tilde{x}_{\mathrm{Th1}}$ and $\tilde{y}_{\mathrm{Th2}}$ denote the means of Th1 and Th2, respectively, obtained either by estimation from published summary statistics or by calculation using raw data.
+
+$$
+\boxed{
+\tilde{x}_R = \frac{\tilde{x}_{\mathrm{Th1}}}{\tilde{y}_{\mathrm{Th2}}}
+\quad (\tilde{y}_{\mathrm{Th2}} \neq 0)
+\tag{6}
+}
+$$
+
+### Calculation of the variance (and standard deviation) of a ratio
+
+It is important to understand that Th1 and Th2 are two dependent variables. Taking this into account, we have used the following formula, published by @vankempen2000:
+
+Their Formula 7 approximates the variance of a ratio using a first-order Taylor expansion [@vankempen2000, p. 301].
+
+$$
+var(\frac{\tilde{x}}{\tilde{y}})\approx
+\frac{Var(\tilde{x})}{\tilde{y}^{2}}
++
+\frac{\tilde{x}^{2}Var(\tilde{y})}{\tilde{y}^{4}}
+-
+2\,\frac{\tilde{x}}{\tilde{y}^{3}}cov(\tilde{x},\tilde{y})
+\tag{7}
+$$
+
+Since $var() = s^2$ and $cov(\tilde{x},\tilde{y})=\rho\,s_{\tilde{x}}\,s_{\tilde{y}}$ (by rearranging) this can be written as:
+
+$$
+var(\frac{\tilde{x}}{\tilde{y}})\approx
+\frac{s_{\tilde{x}}^2}{\tilde{y}^{2}}
++
+\frac{\tilde{x}^{2}s_{\tilde{y}}^2}{\tilde{y}^{4}}
+-
+2\,\frac{\tilde{x}\rho\,s_{\tilde{x}}\,s_{\tilde{y}}}{\tilde{y}^{3}}
+\tag{8}
+$$
+
+which can be rewritten as:
+
+$$
+var(\frac{\tilde{x}}{\tilde{y}})\approx
+\left(\frac{s_{\tilde{x}}}{\tilde{y}}\right)^{2}
++
+\left(\frac{\tilde{x}s_{\tilde{y}}}{\tilde{y}^{2}}\right)^{2}
+-
+2\,\rho \frac{\tilde{x}\,s_{\tilde{x}}\,s_{\tilde{y}}}{\tilde{y}^{3}}
+\tag{9}
+$$
+
+The corresponding standard deviation is obtained by
+
+$$
+\boxed{
+\begin{aligned}
+SD\!\left(\frac{\tilde{x}}{\tilde{y}}\right) &\approx 
+\sqrt{
+    \left(\frac{s_{\tilde{x}}}{\tilde{y}}\right)^{2}
+    +
+    \left(\frac{\tilde{x}\,s_{\tilde{y}}}{\tilde{y}^{2}}\right)^{2}
+    -
+    2\rho \frac{\tilde{x}\, s_{\tilde{x}}\, s_{\tilde{y}}}{\tilde{y}^{3}}
+}\\[0.5em]
+\rho &= 0.5
+\end{aligned}
+}
+$$ {#eq-delta-approx}
+
+## Effect Size Calculation {#sec-effect-size}
+
+### Unstandardized mean difference
+
+-   $\tilde{x}_{\text{pre}},\, s_{\text{pre}}$
+-   $\tilde{x}_{\text{post}},\, s_{\text{post}}$
+-   $r$: Pre–Post correlation (outcome-specific)
+-   $n$: is the number of pairs
+
+*Note: A fixed pre–post correlation of $r = 0.5$ was applied uniformly across all effect size calculations.*
+
+
+Mean Change
+
+$$
+\boxed{
+D = \tilde{x}_{\text{post}} - \tilde{x}_{\text{pre}}
+\tag{11}
+}
+$$ \hfill [@introduc2013, p. 22]
+
+Standard deviation of $D$
+
+$$
+\boxed{
+SD_{\text{diff}} = \sqrt{s_{\text{pre}}^2 + s_{\text{post}}^2 - 2r\,s_{\text{pre}}\,s_{\text{post}}}
+\tag{12}
+}
+$$ \hfill [@introduc2013, p. 24]
+
+Variance of $D$
+
+$$
+\boxed{
+V_D = \frac{SD_{\text{diff}}^2}{n}
+\tag{13}
+}
+$$ \hfill [@introduc2013, p. 24]
+
+Standard error of $D$
+
+$$
+\boxed{
+SE_D = \sqrt{V_D}
+\tag{14}
+}
+$$ \hfill [@introduc2013, p. 24]
+
+Within-subject SD
+
+$$
+\boxed{
+S_{\text{within}} = \frac{SD_{\text{diff}}}{\sqrt{2(1-r)}}
+\tag{15}
+}
+$$ \hfill [@introduc2013, p. 29]
+
+### Standardized mean difference
+
+$$
+\boxed{
+d = \frac{D}{S_{\text{within}}}
+\tag{16}
+}
+$$ \hfill [@introduc2013, p. 29]
+
+Variance and standard error of $d$
+
+$$
+\boxed{
+V_d =
+\left(\frac{1}{n} + \frac{d^2}{2n}\right)\, 2(1-r)
+\tag{17}
+}
+$$ \hfill [@introduc2013, p. 29] 
+
+$$
+\boxed{
+SE_d = \sqrt{V_d}
+\tag{18}
+}
+$$ \hfill [@introduc2013, p. 29]
+
+### Small-sample correction (Hedges’ $g$)
+
+Degrees of freedom for pre-post measures ($df$):
+
+$$
+\boxed{
+df = n-1
+\tag{19}
+}
+$$ \hfill [@introduc2013, p. 29]
+
+Correction factor ($J$)
+
+$$
+\boxed{
+J = 1 - \frac{3}{4df - 1}
+\tag{20}
+}
+$$ \hfill [@introduc2013, p. 27]
+
+Hedges’ $g$:
+
+$$
+\boxed{
+g = J\,d
+\tag{21}
+}
+$$ \hfill [@introduc2013, p. 27]
+
+Variance and SE of $g$
+
+$$
+\boxed{
+V_g = J^2\,V_d
+\tag{22}
+}
+$$ \hfill [@introduc2013, p. 27]
+
+$$
+\boxed{
+SE_g = \sqrt{V_g}
+\tag{23}
+}
+$$ \hfill [@introduc2013, p. 27]
+
+## References
