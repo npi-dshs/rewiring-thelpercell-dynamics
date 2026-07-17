@@ -105,7 +105,7 @@ print(m2_1, overall = TRUE)
 #| fig-width: 10
 #| fig-height: 8
 #| out-width: 100%
-funnel_ce(m2_1, ref = 1.84, xlim = c(-1, 4), ylim = c(0.8, 0))
+funnel_ce(m2_1)
 ```
 
 ## Forest Plot
@@ -133,6 +133,7 @@ res <- metafor::rma(yi = g, vi = V_g, data = fullData_bis, method = "HE")
 taf <- metafor::trimfill(res)
 print(taf)
 ```
+
 ::: {.callout-note}
 # No missing studies
 :::

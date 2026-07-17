@@ -18,7 +18,7 @@ fullData <- load_es("book/data/effect_size/Th1/pre_post/Th1_pre_post_r_050.csv")
 ## Primary Meta-Analysis
 
 ::: infobox
-`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges–Olkin (HE)** τ² estimator and the **Knapp–Hartung** small-sample correction (`hakn = TRUE`). After inspecting the full set,
+`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges-Olkin (HE)** τ² estimator and the **Knapp-Hartung** small-sample correction (`hakn = TRUE`). After inspecting the full set,
 **Kostrzewa-Nowak et al. (2019)** was detected as very different across meta-analysis and while not influential on the
 overall effect, its values were unrealistic and brought substantial misleading variance.
 :::

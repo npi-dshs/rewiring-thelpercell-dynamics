@@ -1,4 +1,4 @@
-# Th1/Th2 Ratio — Immediate Post-Exercise
+# Th1/Th2 Ratio - Immediate Post-Exercise
 
 ```{r}
 #| include: false
@@ -18,7 +18,7 @@ fullData <- load_es("book/data/effect_size/Ratio/pre_post/Ratio_pre_post_r_050.c
 ## Primary Meta-Analysis
 
 ::: infobox
-`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges–Olkin (HE)** τ² estimator and the **Knapp–Hartung** small-sample correction (`hakn = TRUE`). **Kostrzewa-Nowak et al. (2019)** is removed before pooling and the model re-fitted; `metafor::rma()` cross-validates.
+`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges-Olkin (HE)** τ² estimator and the **Knapp-Hartung** small-sample correction (`hakn = TRUE`). **Kostrzewa-Nowak et al. (2019)** is removed before pooling and the model re-fitted; `metafor::rma()` cross-validates.
 :::
 
 ::: panel-tabset
@@ -74,7 +74,7 @@ No outlier.
 ## Funnel Plot & Influential Cases
 
 ::: infobox
-The contour-enhanced funnel plot shows study estimates against their standard errors; shaded regions mark significance zones (α = 0.10, 0.05, 0.01). The dfbetas diagnostic from `metafor::rma.mv()` identifies **influential cases** — distinct from statistical outliers and not necessarily excluded.
+The contour-enhanced funnel plot shows study estimates against their standard errors; shaded regions mark significance zones (α = 0.10, 0.05, 0.01). The dfbetas diagnostic from `metafor::rma.mv()` identifies **influential cases** - distinct from statistical outliers and not necessarily excluded.
 :::
 
 ```{r ratio-funnel}

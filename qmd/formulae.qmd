@@ -237,10 +237,10 @@ $$ {#eq-delta-approx}
 
 -   $\tilde{x}_{\text{pre}},\, s_{\text{pre}}$
 -   $\tilde{x}_{\text{post}},\, s_{\text{post}}$
--   $r$: Pre–Post correlation (outcome-specific)
+-   $r$: Pre-Post correlation (outcome-specific)
 -   $n$: is the number of pairs
 
-*Note: A fixed pre–post correlation of $r = 0.5$ was applied uniformly across all effect size calculations.*
+*Note: A fixed pre-post correlation of $r = 0.5$ was applied uniformly across all effect size calculations.*
 
 
 Mean Change

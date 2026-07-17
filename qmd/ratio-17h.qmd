@@ -1,4 +1,4 @@
-# Th1/Th2 Ratio — 17 h Post-Exercise
+# Th1/Th2 Ratio - 17 h Post-Exercise
 
 ```{r}
 #| include: false
@@ -201,7 +201,7 @@ Not significant
 if ("met" %in% names(fullData)) {
   m5mr <- metareg(m6, met); summary(m5mr)      # Not significant
 } else {
-  message("No 'met' column in this dataset — MET meta-regression skipped.")
+  message("No 'met' column in this dataset - MET meta-regression skipped.")
 }
 ```
 

@@ -72,7 +72,7 @@ format:
     theme:
       light: [yeti, custom.scss]
     mainfont: "Inter"
-    monofont: "Fira Code"
+    monofont: "f Code"
     fontsize: 15px
     linestretch: 1.75
     toc-depth: 3

@@ -18,7 +18,7 @@ fullData <- load_es("book/data/effect_size/Th2/pre_post/Th2_pre_post_r_050.csv")
 ## Primary Meta-Analysis
 
 ::: infobox
-`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges–Olkin (HE)** τ² estimator and the **Knapp–Hartung** small-sample correction (`hakn = TRUE`). **Kostrzewa-Nowak et al. (2019)** is removed before pooling and the model re-fitted; `metafor::rma()` cross-validates.
+`metagen()` fits a random-effects model on the pre-computed effect sizes (*g*, *SE_g*) using the **Hedges-Olkin (HE)** τ² estimator and the **Knapp-Hartung** small-sample correction (`hakn = TRUE`). **Kostrzewa-Nowak et al. (2019)** is removed before pooling and the model re-fitted; `metafor::rma()` cross-validates.
 :::
 
 ::: panel-tabset

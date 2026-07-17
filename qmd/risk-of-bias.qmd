@@ -246,10 +246,10 @@ final_plot
 ::: infobox
 **Confounding-factor items (Panel B).**
 
--   **D1.1** — No exercise 24–48 h pre-intervention?
--   **D1.2** — Standardized food intake among participants (e.g. all fasted or standardized breakfast)?
--   **D1.3** — No caffeine, acute medication, or alcohol 24 h before exercise?
--   **D1.4** — Identical warm-up between participants?
--   **D1.5** — Good way to assess the controlled intensity (HR control, VO₂, VT)?
--   **D1.6** — Homogeneity of the group (sex, age, BMI, training status)?
+-   **D1.1** - No exercise 24-48 h pre-intervention?
+-   **D1.2** - Standardized food intake among participants (e.g. all fasted or standardized breakfast)?
+-   **D1.3** - No caffeine, acute medication, or alcohol 24 h before exercise?
+-   **D1.4** - Identical warm-up between participants?
+-   **D1.5** - Good way to assess the controlled intensity (HR control, VO₂, VT)?
+-   **D1.6** - Homogeneity of the group (sex, age, BMI, training status)?
 :::

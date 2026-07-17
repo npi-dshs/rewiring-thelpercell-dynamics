@@ -1,4 +1,4 @@
-# Th1/Th2 Ratio — ~2 h Post-Exercise
+# Th1/Th2 Ratio - ~2 h Post-Exercise
 
 ```{r}
 #| include: false
