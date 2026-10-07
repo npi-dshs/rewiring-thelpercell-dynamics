@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Workspace Setup – Rewiring Immune Regulation Through Acute Exercise</title>
+<title>2&nbsp; Workspace Setup – Rewiring T Helper Cell Dynamics Through Acute Exercise</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -97,7 +97,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dc82d52599834f6f0c5b676787724671.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-cfe4fee45eb5829cdb498667ad1d2fb5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -125,6 +125,17 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="../site_libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 </head>
@@ -153,7 +164,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Rewiring Immune Regulation Through Acute Exercise</a> 
+      <a href="../">Rewiring T Helper Cell Dynamics Through Acute Exercise</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -166,7 +177,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Background</span></a>
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -190,7 +201,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Th1</span></a>
+ <span class="menu-text">T<sub>H</sub>1</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -199,19 +210,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/th1-immediate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Th1 — Immediate Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T<sub>H</sub>1 - Immediately post-exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/th1-2h.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Th1 — ~2 h Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">T<sub>H</sub>1 - 2 h post-exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/th1-17h.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Th1 — 17 h Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">T<sub>H</sub>1 - 17 h post-exercise</span></span></a>
   </div>
 </li>
       </ul>
@@ -219,7 +230,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Th2</span></a>
+ <span class="menu-text">T<sub>H</sub>2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -228,19 +239,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/th2-immediate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Th2 — Immediate Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T<sub>H</sub>2 - Immediately post-exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/th2-2h.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Th2 — ~2 h Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">T<sub>H</sub>2 - 2 h post-exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/th2-17h.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Th2 — 17 h Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">T<sub>H</sub>2 - 17 h post-exercise</span></span></a>
   </div>
 </li>
       </ul>
@@ -248,7 +259,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Th1/Th2 Ratio</span></a>
+ <span class="menu-text">T<sub>H</sub>1/T<sub>H</sub>2 ratio</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -257,19 +268,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/ratio-immediate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Th1/Th2 Ratio - Immediate Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">T<sub>H</sub>1/T<sub>H</sub>2 ratio - Immediately post-exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/ratio-2h.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Th1/Th2 Ratio - ~2 h Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T<sub>H</sub>1/T<sub>H</sub>2 ratio - 2 h post-exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../qmd/ratio-17h.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Th1/Th2 Ratio - 17 h Post-Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">T<sub>H</sub>1/T<sub>H</sub>2 ratio - 17 h post-exercise</span></span></a>
   </div>
 </li>
       </ul>
@@ -285,7 +296,12 @@ div.csl-indent {
    
   <ul>
   <li><a href="#packages" id="toc-packages" class="nav-link active" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
-  <li><a href="#outlier-detection-functions" id="toc-outlier-detection-functions" class="nav-link" data-scroll-target="#outlier-detection-functions"><span class="header-section-number">2.2</span> Outlier Detection Functions</a></li>
+  <li><a href="#outlier-and-influence-diagnostics" id="toc-outlier-and-influence-diagnostics" class="nav-link" data-scroll-target="#outlier-and-influence-diagnostics"><span class="header-section-number">2.2</span> Outlier and Influence Diagnostics</a>
+  <ul class="collapse">
+  <li><a href="#decision-procedure" id="toc-decision-procedure" class="nav-link" data-scroll-target="#decision-procedure"><span class="header-section-number">2.2.1</span> Decision procedure</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">2.2.2</span> Example</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">2.2.3</span> Functions</a></li>
+  </ul></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
 </nav>
@@ -317,36 +333,111 @@ div.csl-indent {
 </header>
 
 
+<div class="cell">
+<div class="cell-output-display">
+<div id="page-resources" hidden=""><a href="https://github.com/npi-dshs/rewiring-thelpercell-dynamics" target="_blank" rel="noopener" data-icon="github">GitHub repository</a><a href="../R/meta_Th1Th2.R" download="meta_Th1Th2.R" data-icon="file-earmark-code">Meta-analysis R script</a><a href="../R/_common.R" download="_common.R" data-icon="file-earmark-code">Shared setup (_common.R)</a><a href="../R/_chapter_helpers.R" download="_chapter_helpers.R" data-icon="file-earmark-code">Chapter helpers (_chapter_helpers.R)</a></div>
+</div>
+</div>
 <div class="infobox">
 <p>All chapters load a shared setup file (<code>_common.R</code>) that installs/loads the required packages, sets a consistent global <code>ggplot2</code> theme, defines the leave-one-out outlier-detection functions, and exposes small helpers for the standard funnel, forest, and bubble plots used throughout. This keeps every analysis chapter self-contained and reproducible regardless of render order.</p>
 </div>
 <section id="packages" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">2.1</span> Packages</h2>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
+<div class="cell-output-display">
+<div class="pkg-wrap"><div class="pkg-group"><div class="panel-eyebrow">Meta-analysis</div><div class="pkg-grid"><a class="pkg-card" href="https://CRAN.R-project.org/package=meta" target="_blank" rel="noopener"><span class="pkg-name">meta</span><span class="pkg-ver">8.5-0</span><span class="pkg-title">General Package for Meta-Analysis</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=metafor" target="_blank" rel="noopener"><span class="pkg-name">metafor</span><span class="pkg-ver">5.0-1</span><span class="pkg-title">Meta-Analysis Package for R</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=metaviz" target="_blank" rel="noopener"><span class="pkg-name">metaviz</span><span class="pkg-ver">0.3.1</span><span class="pkg-title">Forest Plots, Funnel Plots, and Visual Funnel Plot Inference for Meta-Analysis</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=forestplot" target="_blank" rel="noopener"><span class="pkg-name">forestplot</span><span class="pkg-ver">3.2.0</span><span class="pkg-title">Advanced Forest Plot Using grid Graphics</span></a></div></div><div class="pkg-group"><div class="panel-eyebrow">Data handling</div><div class="pkg-grid"><a class="pkg-card" href="https://CRAN.R-project.org/package=dplyr" target="_blank" rel="noopener"><span class="pkg-name">dplyr</span><span class="pkg-ver">1.2.1</span><span class="pkg-title">A Grammar of Data Manipulation</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=tidyr" target="_blank" rel="noopener"><span class="pkg-name">tidyr</span><span class="pkg-ver">1.3.2</span><span class="pkg-title">Tidy Messy Data</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=data.table" target="_blank" rel="noopener"><span class="pkg-name">data.table</span><span class="pkg-ver">1.18.4</span><span class="pkg-title">Extension of `data.frame`</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=stringr" target="_blank" rel="noopener"><span class="pkg-name">stringr</span><span class="pkg-ver">1.6.0</span><span class="pkg-title">Simple, Consistent Wrappers for Common String Operations</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=readr" target="_blank" rel="noopener"><span class="pkg-name">readr</span><span class="pkg-ver">2.2.0</span><span class="pkg-title">Read Rectangular Text Data</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=readxl" target="_blank" rel="noopener"><span class="pkg-name">readxl</span><span class="pkg-ver">1.5.0</span><span class="pkg-title">Read Excel Files</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=reshape2" target="_blank" rel="noopener"><span class="pkg-name">reshape2</span><span class="pkg-ver">1.4.5</span><span class="pkg-title">Flexibly Reshape Data: A Reboot of the Reshape Package</span></a></div></div><div class="pkg-group"><div class="panel-eyebrow">Visualisation</div><div class="pkg-grid"><a class="pkg-card" href="https://CRAN.R-project.org/package=ggplot2" target="_blank" rel="noopener"><span class="pkg-name">ggplot2</span><span class="pkg-ver">4.0.3</span><span class="pkg-title">Create Elegant Data Visualisations Using the Grammar of Graphics</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=plotly" target="_blank" rel="noopener"><span class="pkg-name">plotly</span><span class="pkg-ver">4.12.0</span><span class="pkg-title">Create Interactive Web Graphics via plotly.js</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=patchwork" target="_blank" rel="noopener"><span class="pkg-name">patchwork</span><span class="pkg-ver">1.3.2</span><span class="pkg-title">The Composer of Plots</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=cowplot" target="_blank" rel="noopener"><span class="pkg-name">cowplot</span><span class="pkg-ver">1.2.0</span><span class="pkg-title">Streamlined Plot Theme and Plot Annotations for ggplot2</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=gridExtra" target="_blank" rel="noopener"><span class="pkg-name">gridExtra</span><span class="pkg-ver">2.3.1</span><span class="pkg-title">Miscellaneous Functions for "Grid" Graphics</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=scales" target="_blank" rel="noopener"><span class="pkg-name">scales</span><span class="pkg-ver">1.4.0</span><span class="pkg-title">Scale Functions for Visualization</span></a></div></div><div class="pkg-group"><div class="panel-eyebrow">Tables &amp; export</div><div class="pkg-grid"><a class="pkg-card" href="https://CRAN.R-project.org/package=kableExtra" target="_blank" rel="noopener"><span class="pkg-name">kableExtra</span><span class="pkg-ver">1.4.1</span><span class="pkg-title">Construct Complex Table with kable and Pipe Syntax</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=writexl" target="_blank" rel="noopener"><span class="pkg-name">writexl</span><span class="pkg-ver">1.5.4</span><span class="pkg-title">Export Data Frames to Excel xlsx Format</span></a><a class="pkg-card" href="https://CRAN.R-project.org/package=zip" target="_blank" rel="noopener"><span class="pkg-name">zip</span><span class="pkg-ver">3.0.1</span><span class="pkg-title">Cross-Platform zip Compression</span></a></div></div><div class="pkg-meta">R version 4.6.1 (2026-06-24)</div></div>
+</div>
+</div>
+<details class="raw-output">
+<summary>
+Installation code
+</summary>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>requiredlibraries <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"metafor"</span>, <span class="st">"tidyr"</span>, <span class="st">"dplyr"</span>, <span class="st">"data.table"</span>, <span class="st">"stringr"</span>, <span class="st">"readr"</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"reshape2"</span>, <span class="st">"cowplot"</span>, <span class="st">"gridExtra"</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"forestplot"</span>, <span class="st">"metaviz"</span>, <span class="st">"meta"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readxl"</span>, <span class="st">"patchwork"</span>, <span class="st">"scales"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Install any that are missing, then load all of them.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>missing_packages <span class="ot">&lt;-</span> requiredlibraries[</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span><span class="fu">sapply</span>(requiredlibraries, requireNamespace, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_packages) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing_packages, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(requiredlibraries, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readxl"</span>, <span class="st">"patchwork"</span>, <span class="st">"scales"</span>, <span class="st">"kableExtra"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"plotly"</span>, <span class="st">"writexl"</span>, <span class="st">"zip"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Install any that are missing, then load all of them.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>missing_packages <span class="ot">&lt;-</span> requiredlibraries[</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span><span class="fu">sapply</span>(requiredlibraries, requireNamespace, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_packages) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing_packages, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(requiredlibraries, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</details>
 </section>
-<section id="outlier-detection-functions" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="outlier-detection-functions"><span class="header-section-number">2.2</span> Outlier Detection Functions</h2>
+<section id="outlier-and-influence-diagnostics" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="outlier-and-influence-diagnostics"><span class="header-section-number">2.2</span> Outlier and Influence Diagnostics</h2>
 <div class="infobox">
-<p><strong>Custom functions — required for all outlier analyses below.</strong></p>
+<p><strong>Custom functions - required for all outlier analyses below.</strong></p>
 <p>The following four functions implement the leave-one-out standardised residual approach described in <span class="citation" data-cites="hedgesDiagnosticProceduresResearch1985">Hedges and Olkin (<a href="#ref-hedgesDiagnosticProceduresResearch1985" role="doc-biblioref">1985</a>)</span> and <span class="citation" data-cites="viechtbauerOutlierInfluenceDiagnostics2010">Viechtbauer and Cheung (<a href="#ref-viechtbauerOutlierInfluenceDiagnostics2010" role="doc-biblioref">2010</a>)</span>. A study is classified as an outlier if its standardised residual exceeds |3|; values above |1.96| warrant closer inspection. The model (fixed- vs.&nbsp;random-effects) is selected automatically from the robust heterogeneity index <em>I</em>r² (&lt; 30% → fixed-effects, otherwise random-effects). The outlier routine is always passed the <strong>variance</strong> (<code>seTE^2</code>) as its <code>s2</code> argument.</p>
 </div>
+<section id="decision-procedure" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="decision-procedure"><span class="header-section-number">2.2.1</span> Decision procedure</h3>
+<div class="cell" data-fig-width="6.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["M1 - Primary&lt;br/&gt;random-effects model"] --&gt; B["Leave-one-out standardised residuals&lt;br/&gt;&lt;code&gt;metaoutliers(y, s2 = seTE^2)&lt;/code&gt;"]
+  B --&gt; C{"|z| ≥ 3"}
+  C -- no --&gt; D["|z| &gt; 1.96: inspect&lt;br/&gt;otherwise: no outlier"]
+  C -- yes --&gt; E["Outlier"]
+  A --&gt; F["DFBETAS&lt;br/&gt;&lt;code&gt;rma.mv()&lt;/code&gt;"]
+  F --&gt; G{"|DFBETAS| &gt; 1"}
+  G -- yes --&gt; H["Influential case"]
+  G -- no --&gt; I["Not influential"]
+  E --&gt; J{"Outlier and&lt;br/&gt;influential?"}
+  H --&gt; J
+  J -- yes --&gt; K["Withdraw and re-fit&lt;br/&gt;M2 - Outlier-adjusted"]
+  J -- no --&gt; L["Retain all outcomes&lt;br/&gt;heterogeneity: moderator analyses"]
+  D --&gt; L
+  I --&gt; L
+  classDef model fill:#F0F6FF,stroke:#0078D4,color:#1E1E1E
+  classDef flag fill:#FDECEC,stroke:#C62828,color:#8B1A1A
+  classDef keep fill:#F7F7F7,stroke:#9AA0A6,color:#1E1E1E
+  class A,K model
+  class E,H flag
+  class D,I,L keep
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="example" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="example"><span class="header-section-number">2.2.2</span> Example</h3>
+<p><span class="model-badge" data-k="10">Based on: M1 - Primary - k = 10</span> <span class="panel-eyebrow eyebrow-plain">T<sub>H</sub>1 - 17 h post-exercise - r = .50</span></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Standardised residuals</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">DFBETAS</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-c5fc31b4a34dbecbf2bd" style="width:100%;height:460px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c5fc31b4a34dbecbf2bd">{"x":{"visdat":{"e4596323afb1":["function () ","plotlyVisDat"]},"cur_data":"e4596323afb1","attrs":{"e4596323afb1":{"x":{},"y":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"lines","line":{"color":"grey","width":1.2},"hoverinfo":"skip","inherit":true},"e4596323afb1.1":{"x":{},"y":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"markers","marker":{"color":{},"size":11},"text":{},"hoverinfo":"text","inherit":true}},"layout":{"height":460,"margin":{"b":60,"l":70,"t":10,"r":20},"font":{"family":"Arial, Helvetica, Roboto, sans-serif","size":13,"color":"#1E1E1E"},"showlegend":false,"plot_bgcolor":"#fff","paper_bgcolor":"#fff","shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":0,"y1":0,"line":{"color":"#8c8c8c","dash":"solid","width":0.59999999999999998}},{"type":"line","xref":"paper","x0":0,"x1":1,"y0":1.96,"y1":1.96,"line":{"color":"#b3b3b3","dash":"dot","width":1}},{"type":"line","xref":"paper","x0":0,"x1":1,"y0":-1.96,"y1":-1.96,"line":{"color":"#b3b3b3","dash":"dot","width":1}},{"type":"line","xref":"paper","x0":0,"x1":1,"y0":3,"y1":3,"line":{"color":"red","dash":"dash","width":1.6000000000000001}},{"type":"line","xref":"paper","x0":0,"x1":1,"y0":-3,"y1":-3,"line":{"color":"red","dash":"dash","width":1.6000000000000001}}],"xaxis":{"domain":[0,1],"automargin":true,"title":"Outcome ID","tickmode":"array","tickvals":[1,2,3,4,5,6,7,8,9,10],"showline":true,"linecolor":"#000","ticks":"outside","zeroline":false,"gridcolor":"#ebebeb"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Standardized residual","range":[-4.2888744586921783,4.2888744586921783],"showline":true,"linecolor":"#000","ticks":"outside","zeroline":false,"gridcolor":"#ebebeb"},"hoverlabel":{"bgcolor":"#fff","font":{"family":"Arial, Helvetica, Roboto, sans-serif","size":13,"color":"#1E1E1E"}},"hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"modeBarButtons":[["zoom2d","pan2d","resetScale2d","toImage"]],"toImageButtonOptions":{"format":"svg","filename":"stdres","width":1000,"height":800}},"data":[{"x":[1,2,3,4,5,6,7,8,9,10],"y":[0.78493718932649559,0.76874839639821457,-0.27239513287327938,0.32340044842729176,-0.34715730923691851,-0.29315027617603828,-0.22102015602179043,0.056166348248268584,2.3842334377627079,-4.0846423416115982],"type":"scatter","mode":"lines","line":{"color":"grey","width":1.2},"hoverinfo":["skip","skip","skip","skip","skip","skip","skip","skip","skip","skip"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[0.78493718932649559,0.76874839639821457,-0.27239513287327938,0.32340044842729176,-0.34715730923691851,-0.29315027617603828,-0.22102015602179043,0.056166348248268584,2.3842334377627079,-4.0846423416115982],"type":"scatter","mode":"markers","marker":{"color":["#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","red"],"size":11,"line":{"color":"rgba(255,127,14,1)"}},"text":["<b>Kostrzewa-Nowak & Nowak (2018)a<\/b><br>Outcome ID 1<br>z = 0.78","<b>Kostrzewa-Nowak & Nowak (2018)b<\/b><br>Outcome ID 2<br>z = 0.77","<b>Kostrzewa-Nowak & Nowak (2020a)a<\/b><br>Outcome ID 3<br>z = -0.27","<b>Kostrzewa-Nowak & Nowak (2020a)b<\/b><br>Outcome ID 4<br>z = 0.32","<b>Kostrzewa-Nowak & Nowak (2020b)a<\/b><br>Outcome ID 5<br>z = -0.35","<b>Kostrzewa-Nowak & Nowak (2020b)b<\/b><br>Outcome ID 6<br>z = -0.29","<b>Kostrzewa-Nowak & Nowak (2020b)c<\/b><br>Outcome ID 7<br>z = -0.22","<b>Kostrzewa-Nowak & Nowak (2020b)d<\/b><br>Outcome ID 8<br>z = 0.06","<b>Kostrzewa-Nowak & Nowak (2020b)e<\/b><br>Outcome ID 9<br>z = 2.38","<b>Steensberg et al. (2001)<\/b><br>Outcome ID 10<br>z = -4.08"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text"],"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-484a5c942fa9a65834f3" style="width:100%;height:420px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-484a5c942fa9a65834f3">{"x":{"visdat":{"e45945badfb3":["function () ","plotlyVisDat"]},"cur_data":"e45945badfb3","attrs":{"e45945badfb3":{"x":{},"y":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"lines","line":{"color":"grey","width":1.2},"hoverinfo":"skip","inherit":true},"e45945badfb3.1":{"x":{},"y":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"markers","marker":{"color":{},"size":11},"text":{},"hoverinfo":"text","inherit":true}},"layout":{"height":420,"margin":{"b":60,"l":70,"t":10,"r":20},"font":{"family":"Arial, Helvetica, Roboto, sans-serif","size":13,"color":"#1E1E1E"},"showlegend":false,"plot_bgcolor":"#fff","paper_bgcolor":"#fff","shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":0,"y1":0,"line":{"color":"#8c8c8c","dash":"solid","width":0.59999999999999998}},{"type":"line","xref":"paper","x0":0,"x1":1,"y0":1,"y1":1,"line":{"color":"red","dash":"dash","width":1.6000000000000001}},{"type":"line","xref":"paper","x0":0,"x1":1,"y0":-1,"y1":-1,"line":{"color":"red","dash":"dash","width":1.6000000000000001}}],"xaxis":{"domain":[0,1],"automargin":true,"title":"Outcome ID","tickmode":"array","tickvals":[1,2,3,4,5,6,7,8,9,10],"showline":true,"linecolor":"#000","ticks":"outside","zeroline":false,"gridcolor":"#ebebeb"},"yaxis":{"domain":[0,1],"automargin":true,"title":"DFBETAS","range":[-2.4786987245631837,2.4786987245631837],"showline":true,"linecolor":"#000","ticks":"outside","zeroline":false,"gridcolor":"#ebebeb"},"hoverlabel":{"bgcolor":"#fff","font":{"family":"Arial, Helvetica, Roboto, sans-serif","size":13,"color":"#1E1E1E"}},"hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"modeBarButtons":[["zoom2d","pan2d","resetScale2d","toImage"]],"toImageButtonOptions":{"format":"svg","filename":"dfbetas","width":1000,"height":800}},"data":[{"x":[1,2,3,4,5,6,7,8,9,10],"y":[0.42461320003742997,0.42202631043167538,-0.045116478101136025,0.72827130404544071,-0.10227485402409954,-0.045899205292066522,0.022983074983580196,0.22848951385472424,0.53549706681180198,-2.2950914116325776],"type":"scatter","mode":"lines","line":{"color":"grey","width":1.2},"hoverinfo":["skip","skip","skip","skip","skip","skip","skip","skip","skip","skip"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[0.42461320003742997,0.42202631043167538,-0.045116478101136025,0.72827130404544071,-0.10227485402409954,-0.045899205292066522,0.022983074983580196,0.22848951385472424,0.53549706681180198,-2.2950914116325776],"type":"scatter","mode":"markers","marker":{"color":["#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","#1f4e79","red"],"size":11,"line":{"color":"rgba(255,127,14,1)"}},"text":["<b>Kostrzewa-Nowak & Nowak (2018)a<\/b><br>Outcome ID 1<br>DFBETAS = 0.42","<b>Kostrzewa-Nowak & Nowak (2018)b<\/b><br>Outcome ID 2<br>DFBETAS = 0.42","<b>Kostrzewa-Nowak & Nowak (2020a)a<\/b><br>Outcome ID 3<br>DFBETAS = -0.05","<b>Kostrzewa-Nowak & Nowak (2020a)b<\/b><br>Outcome ID 4<br>DFBETAS = 0.73","<b>Kostrzewa-Nowak & Nowak (2020b)a<\/b><br>Outcome ID 5<br>DFBETAS = -0.10","<b>Kostrzewa-Nowak & Nowak (2020b)b<\/b><br>Outcome ID 6<br>DFBETAS = -0.05","<b>Kostrzewa-Nowak & Nowak (2020b)c<\/b><br>Outcome ID 7<br>DFBETAS = 0.02","<b>Kostrzewa-Nowak & Nowak (2020b)d<\/b><br>Outcome ID 8<br>DFBETAS = 0.23","<b>Kostrzewa-Nowak & Nowak (2020b)e<\/b><br>Outcome ID 9<br>DFBETAS = 0.54","<b>Steensberg et al. (2001)<\/b><br>Outcome ID 10<br>DFBETAS = -2.30"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text"],"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="functions" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="functions"><span class="header-section-number">2.2.3</span> Functions</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -362,6 +453,7 @@ div.csl-indent {
 <!-- -->
 
 </section>
+</section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -375,6 +467,99 @@ Viechtbauer, Wolfgang, and Mike W.-L. Cheung. 2010. <span>“Outlier and Influen
 </section>
 
 </main> <!-- /main -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // table numbers: "Tab. n" for every captioned table; hidden r-variants are skipped
+  function numberTables() {
+    var n = 0;
+    document.querySelectorAll("main table caption").forEach(function (c) {
+      var v = c.closest(".r-variant");
+      if (v && !v.classList.contains("active")) return;
+      c.setAttribute("data-num", ++n);
+    });
+  }
+
+  // resources block under the TOC, built from the page's #page-resources links
+  var res = document.getElementById("page-resources");
+  var toc = document.querySelector("#quarto-margin-sidebar nav#TOC") || document.querySelector("nav#TOC");
+  var margin = document.getElementById("quarto-margin-sidebar");
+  if (res && (toc || margin)) {
+    var box = document.createElement("div");
+    box.className = "side-resources";
+    box.innerHTML = "<h6>Resources</h6>";
+    res.querySelectorAll("a").forEach(function (a) {
+      var label = a.textContent;
+      a.innerHTML = '<i class="bi bi-' + (a.dataset.icon || "download") + '"></i><span>' + label + "</span>";
+      if (/^Data - r = /.test(label)) a.id = "dl-csv";
+      if (a.classList.contains("is-ph")) {
+        a.title = "Placeholder";
+        a.addEventListener("click", function (e) { e.preventDefault(); });
+      }
+      box.appendChild(a);
+    });
+    if (toc) toc.parentNode.insertBefore(box, toc.nextSibling);
+    else { box.classList.add("no-toc"); margin.appendChild(box); }
+    res.remove();
+  }
+
+  var bar = document.getElementById("r-switch");
+  if (!bar) { numberTables(); return; }
+
+  var sel = document.getElementById("r-select");
+  var file = bar.querySelector(".r-file");
+  var prefix = bar.dataset.prefix || "";
+
+  // keep the switch sticky over the whole chapter (move it out of its section)
+  var main = document.querySelector("main#quarto-document-content") || document.querySelector("main");
+  var host = bar.closest("section");
+  if (main && host) main.insertBefore(bar, host.nextSibling);
+  function setTop() {
+    var nav = document.querySelector(".quarto-secondary-nav");
+    var h = nav && nav.offsetParent !== null ? nav.getBoundingClientRect().height : 0;
+    bar.style.top = (h + 8) + "px";
+  }
+  window.addEventListener("resize", setTop); setTop();
+
+  function setR(r) {
+    sel.value = r;
+    file.textContent = prefix + r + ".csv";
+    document.querySelectorAll(".r-variant").forEach(function (el) {
+      el.classList.toggle("active", el.dataset.r === r);
+    });
+    document.querySelectorAll(".sens-table tbody tr").forEach(function (tr) {
+      tr.classList.toggle("is-current", tr.dataset.r === r);
+    });
+    var dl = document.getElementById("dl-csv");
+    if (dl) {
+      dl.querySelector("span").textContent = "Data - r = ." + r.slice(1);
+      if (dl.dataset.pattern) {
+        dl.href = dl.dataset.pattern.replace("{r}", r);
+        dl.setAttribute("download", dl.href.split("/").pop());
+      }
+    }
+    numberTables();
+    window.dispatchEvent(new Event("resize"));
+  }
+  sel.addEventListener("change", function () { setR(sel.value); });
+  document.querySelectorAll(".sens-table tbody tr").forEach(function (tr) {
+    tr.addEventListener("click", function () {
+      setR(tr.dataset.r);
+      bar.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+  setR("050");
+
+  // grey out the switch once the r = .50-only sections are reached
+  var marker = document.querySelector(".r-fixed-start");
+  function checkFixed() {
+    if (!marker) return;
+    bar.classList.toggle("is-fixed", marker.getBoundingClientRect().top < bar.offsetHeight + 16);
+  }
+  window.addEventListener("scroll", checkFixed, { passive: true });
+  checkFixed();
+
+});
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -842,49 +1027,150 @@ Viechtbauer, Wolfgang, and Mike W.-L. Cheung. 2010. <span>“Outlier and Influen
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (p <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"R/_common.R"</span>, <span class="st">"../_common.R"</span>, <span class="st">"book/R/_common.R"</span>)) <span class="cf">if</span> (<span class="fu">file.exists</span>(p)) { <span class="fu">source</span>(p); <span class="cf">break</span> }</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>::: infobox</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>All chapters load a shared setup file (<span class="in">`_common.R`</span>) that installs/loads the required packages, sets a consistent global <span class="in">`ggplot2`</span> theme, defines the leave-one-out outlier-detection functions, and exposes small helpers for the standard funnel, forest, and bubble plots used throughout. This keeps every analysis chapter self-contained and reproducible regardless of render order.</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Packages</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r show-packages}</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>requiredlibraries <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"metafor"</span>, <span class="st">"tidyr"</span>, <span class="st">"dplyr"</span>, <span class="st">"data.table"</span>, <span class="st">"stringr"</span>, <span class="st">"readr"</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"reshape2"</span>, <span class="st">"cowplot"</span>, <span class="st">"gridExtra"</span>,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"forestplot"</span>, <span class="st">"metaviz"</span>, <span class="st">"meta"</span>,</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readxl"</span>, <span class="st">"patchwork"</span>, <span class="st">"scales"</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Install any that are missing, then load all of them.</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>missing_packages <span class="ot">&lt;-</span> requiredlibraries[</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span><span class="fu">sapply</span>(requiredlibraries, requireNamespace, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_packages) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing_packages, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(requiredlibraries, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Outlier Detection Functions</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>::: infobox</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>**Custom functions — required for all outlier analyses below.**</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>The following four functions implement the leave-one-out standardised residual approach described in @hedgesDiagnosticProceduresResearch1985 and @viechtbauerOutlierInfluenceDiagnostics2010. A study is classified as an outlier if its standardised residual exceeds <span class="sc">\|</span>3<span class="sc">\|</span>; values above <span class="sc">\|</span>1.96<span class="sc">\|</span> warrant closer inspection. The model (fixed- vs. random-effects) is selected automatically from the robust heterogeneity index *I*r² (\&lt; 30% → fixed-effects, otherwise random-effects). The outlier routine is always passed the **variance** (<span class="in">`seTE^2`</span>) as its <span class="in">`s2`</span> argument.</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r show-outlier-functions}</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>metaoutliers  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, s2, model) { ... }   <span class="co"># leave-one-out standardised residuals</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>metahet.base  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, s2)        { ... }   <span class="co"># heterogeneity measures (Q, I², τ², robust Ir²)</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>tau2.r.solver <span class="ot">&lt;-</span> <span class="cf">function</span>(w, Qr)        { ... }   <span class="co"># robust τ² (mean-based)</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>tau2.m.solver <span class="ot">&lt;-</span> <span class="cf">function</span>(w, Qm)        { ... }   <span class="co"># robust τ² (median-based)</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>The full definitions live in <span class="in">`_common.R`</span> and are sourced automatically at the top of every chapter.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (p <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"R/_common.R"</span>, <span class="st">"../R/_common.R"</span>, <span class="st">"book/R/_common.R"</span>)) <span class="cf">if</span> (<span class="fu">file.exists</span>(p)) { <span class="fu">source</span>(p); <span class="cf">break</span> }</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(<span class="fu">dirname</span>(p), <span class="st">"_chapter_helpers.R"</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_knit<span class="sc">$</span><span class="fu">set</span>(<span class="at">root.dir =</span> <span class="fu">normalizePath</span>(<span class="fu">dirname</span>(<span class="fu">dirname</span>(p))))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">page_resources</span>(<span class="fu">list</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"GitHub repository"</span>, REPO_URL, <span class="st">"github"</span>),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Meta-analysis R script"</span>, <span class="st">"../R/meta_Th1Th2.R"</span>, <span class="st">"file-earmark-code"</span>),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Shared setup (_common.R)"</span>, <span class="st">"../R/_common.R"</span>, <span class="st">"file-earmark-code"</span>),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Chapter helpers (_chapter_helpers.R)"</span>, <span class="st">"../R/_chapter_helpers.R"</span>, <span class="st">"file-earmark-code"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>::: infobox</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>All chapters load a shared setup file (<span class="in">`_common.R`</span>) that installs/loads the required packages, sets a consistent global <span class="in">`ggplot2`</span> theme, defines the leave-one-out outlier-detection functions, and exposes small helpers for the standard funnel, forest, and bubble plots used throughout. This keeps every analysis chapter self-contained and reproducible regardless of render order.</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Packages</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>pkg_groups <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Meta-analysis"</span>   <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"meta"</span>, <span class="st">"metafor"</span>, <span class="st">"metaviz"</span>, <span class="st">"forestplot"</span>),</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Data handling"</span>   <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>, <span class="st">"data.table"</span>, <span class="st">"stringr"</span>, <span class="st">"readr"</span>, <span class="st">"readxl"</span>, <span class="st">"reshape2"</span>),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Visualisation"</span>   <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"plotly"</span>, <span class="st">"patchwork"</span>, <span class="st">"cowplot"</span>, <span class="st">"gridExtra"</span>, <span class="st">"scales"</span>),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Tables &amp; export"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"kableExtra"</span>, <span class="st">"writexl"</span>, <span class="st">"zip"</span>)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>card <span class="ot">&lt;-</span> <span class="cf">function</span>(p) {</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> utils<span class="sc">::</span><span class="fu">packageDescription</span>(p)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">'&lt;a class="pkg-card" href="https://CRAN.R-project.org/package=%s" target="_blank" rel="noopener"&gt;&lt;span class="pkg-name"&gt;%s&lt;/span&gt;&lt;span class="pkg-ver"&gt;%s&lt;/span&gt;&lt;span class="pkg-title"&gt;%s&lt;/span&gt;&lt;/a&gt;'</span>,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>          p, p, d<span class="sc">$</span>Version, <span class="fu">gsub</span>(<span class="st">"[</span><span class="sc">\n</span><span class="st"> ]+"</span>, <span class="st">" "</span>, <span class="fu">gsub</span>(<span class="st">"'"</span>, <span class="st">""</span>, d<span class="sc">$</span>Title)))</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>html <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">vapply</span>(<span class="fu">names</span>(pkg_groups), <span class="cf">function</span>(g) <span class="fu">sprintf</span>(</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;div class="pkg-group"&gt;&lt;div class="panel-eyebrow"&gt;%s&lt;/div&gt;&lt;div class="pkg-grid"&gt;%s&lt;/div&gt;&lt;/div&gt;'</span>,</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  g, <span class="fu">paste</span>(<span class="fu">vapply</span>(pkg_groups[[g]], card, <span class="fu">character</span>(<span class="dv">1</span>)), <span class="at">collapse =</span> <span class="st">""</span>)), <span class="fu">character</span>(<span class="dv">1</span>)), <span class="at">collapse =</span> <span class="st">""</span>)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(<span class="fu">paste0</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">```{=html}</span><span class="sc">\n</span><span class="st">&lt;div class=</span><span class="sc">\"</span><span class="st">pkg-wrap</span><span class="sc">\"</span><span class="st">&gt;"</span>, html,</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">'&lt;div class="pkg-meta"&gt;%s&lt;/div&gt;'</span>, R.version.string), <span class="st">"&lt;/div&gt;</span><span class="sc">\n</span><span class="st">```</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"raw-output"</span><span class="dt">&gt;&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Installation code<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r show-packages}</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>requiredlibraries <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="st">"metafor"</span>, <span class="st">"tidyr"</span>, <span class="st">"dplyr"</span>, <span class="st">"data.table"</span>, <span class="st">"stringr"</span>, <span class="st">"readr"</span>,</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"reshape2"</span>, <span class="st">"cowplot"</span>, <span class="st">"gridExtra"</span>,</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="st">"forestplot"</span>, <span class="st">"metaviz"</span>, <span class="st">"meta"</span>,</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readxl"</span>, <span class="st">"patchwork"</span>, <span class="st">"scales"</span>, <span class="st">"kableExtra"</span>,</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="st">"plotly"</span>, <span class="st">"writexl"</span>, <span class="st">"zip"</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Install any that are missing, then load all of them.</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>missing_packages <span class="ot">&lt;-</span> requiredlibraries[</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span><span class="fu">sapply</span>(requiredlibraries, requireNamespace, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_packages) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing_packages, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(requiredlibraries, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Outlier and Influence Diagnostics</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>::: infobox</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>**Custom functions - required for all outlier analyses below.**</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>The following four functions implement the leave-one-out standardised residual approach described in @hedgesDiagnosticProceduresResearch1985 and @viechtbauerOutlierInfluenceDiagnostics2010. A study is classified as an outlier if its standardised residual exceeds <span class="sc">\|</span>3<span class="sc">\|</span>; values above <span class="sc">\|</span>1.96<span class="sc">\|</span> warrant closer inspection. The model (fixed- vs. random-effects) is selected automatically from the robust heterogeneity index *I*r² (\&lt; 30% → fixed-effects, otherwise random-effects). The outlier routine is always passed the **variance** (<span class="in">`seTE^2`</span>) as its <span class="in">`s2`</span> argument.</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Decision procedure</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>%%| echo: false</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>%%| fig-width: <span class="fl">6.5</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>  A[<span class="ot">"</span><span class="st">M1 - Primary&lt;br/&gt;random-effects model</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Leave-one-out standardised residuals&lt;br/&gt;&lt;code&gt;metaoutliers(y, s2 = seTE^2)&lt;/code&gt;</span><span class="ot">"</span>]</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>  B --&gt; C{<span class="ot">"</span><span class="st">|z| ≥ 3</span><span class="ot">"</span>}</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>  C -- <span class="fu">no</span> --&gt; D[<span class="ot">"</span><span class="st">|z| &gt; 1.96: inspect&lt;br/&gt;otherwise: no outlier</span><span class="ot">"</span>]</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>  C -- yes --&gt; E[<span class="ot">"</span><span class="st">Outlier</span><span class="ot">"</span>]</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>  A --&gt; F[<span class="ot">"</span><span class="st">DFBETAS&lt;br/&gt;&lt;code&gt;rma.mv()&lt;/code&gt;</span><span class="ot">"</span>]</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>  F --&gt; G{<span class="ot">"</span><span class="st">|DFBETAS| &gt; 1</span><span class="ot">"</span>}</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>  G -- yes --&gt; H[<span class="ot">"</span><span class="st">Influential case</span><span class="ot">"</span>]</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>  G -- <span class="fu">no</span> --&gt; I[<span class="ot">"</span><span class="st">Not influential</span><span class="ot">"</span>]</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  E --&gt; J{<span class="ot">"</span><span class="st">Outlier and&lt;br/&gt;influential?</span><span class="ot">"</span>}</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  H --&gt; J</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>  J -- yes --&gt; K[<span class="ot">"</span><span class="st">Withdraw and re-fit&lt;br/&gt;M2 - Outlier-adjusted</span><span class="ot">"</span>]</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>  J -- <span class="fu">no</span> --&gt; L[<span class="ot">"</span><span class="st">Retain all outcomes&lt;br/&gt;heterogeneity: moderator analyses</span><span class="ot">"</span>]</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>  D --&gt; L</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>  I --&gt; L</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>  classDef model fill:<span class="co">#F0F6FF,stroke:#0078D4,color:#1E1E1E</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>  classDef flag fill:<span class="co">#FDECEC,stroke:#C62828,color:#8B1A1A</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>  classDef keep fill:<span class="co">#F7F7F7,stroke:#9AA0A6,color:#1E1E1E</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>  class A,K model</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>  class E,H flag</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>  class D,I,L keep</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>ex_cfg <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">outcome =</span> <span class="st">"Th1"</span>, <span class="at">win =</span> <span class="st">"pre_post17h"</span>, <span class="at">drop_kost =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>ex_dat <span class="ot">&lt;-</span> <span class="fu">drop_kostrzewa19</span>(<span class="fu">load_es</span>(<span class="fu">es_file</span>(ex_cfg, R_MAIN)))</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>ex_m   <span class="ot">&lt;-</span> <span class="fu">.fit</span>(ex_dat)</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>ex_out <span class="ot">&lt;-</span> <span class="fu">metaoutliers</span>(<span class="at">y =</span> ex_m<span class="sc">$</span>TE, <span class="at">s2 =</span> ex_m<span class="sc">$</span>seTE<span class="sc">^</span><span class="dv">2</span>, <span class="at">model =</span> <span class="st">"RE"</span>)</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>ex_dfb <span class="ot">&lt;-</span> <span class="fu">dfbetas</span>(<span class="fu">rma.mv</span>(g, VE_g, <span class="at">tdist =</span> <span class="cn">TRUE</span>, <span class="at">data =</span> ex_dat))[[<span class="dv">1</span>]]</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="in">`r badge("M1", "Primary", ex_m$k)`</span> <span class="co">[</span><span class="ot">T~H~1 - 17 h post-exercise - r = .50</span><span class="co">]</span>{.panel-eyebrow .eyebrow-plain}</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Standardised residuals</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: 100%</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_stdres</span>(ex_out<span class="sc">$</span>std.res, <span class="at">labels =</span> ex_dat<span class="sc">$</span>Short_reference)</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### DFBETAS</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: 100%</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dfbetas</span>(ex_dfb, <span class="at">labels =</span> ex_dat<span class="sc">$</span>Short_reference)</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="fu">### Functions</span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r show-outlier-functions}</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>metaoutliers  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, s2, model) { ... }   <span class="co"># leave-one-out standardised residuals</span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>metahet.base  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, s2)        { ... }   <span class="co"># heterogeneity measures (Q, I², τ², robust Ir²)</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>tau2.r.solver <span class="ot">&lt;-</span> <span class="cf">function</span>(w, Qr)        { ... }   <span class="co"># robust τ² (mean-based)</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>tau2.m.solver <span class="ot">&lt;-</span> <span class="cf">function</span>(w, Qm)        { ... }   <span class="co"># robust τ² (median-based)</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>The full definitions live in <span class="in">`_common.R`</span> and are sourced automatically at the top of every chapter.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -894,7 +1180,7 @@ Viechtbauer, Wolfgang, and Mike W.-L. Cheung. 2010. <span>“Outlier and Influen
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Rewiring Immune Regulation Through Acute Exercise - Documentation</p>
+<p>Rewiring T Helper Cell Dynamics Through Acute Exercise - Documentation</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

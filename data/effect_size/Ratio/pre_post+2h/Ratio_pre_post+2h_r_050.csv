@@ -1,0 +1,6 @@
+Study;g;V_g;SE_g;age;sex;bmi;RoB;intensity;duration;dose;staining;IFN;IL_10;IL_2;IL_4;IL_6
+Ibfelt et al. (2002);-0.6789001;0.1409423;0.3754229;28;male;NA;Serious;Vigorous;90;630;intra;NA;NA;NA;NA;NA
+Steensberg et al. (2001);-1.4386314;0.2056274;0.4534616;30;male;NA;Moderate;Vigorous;150;1050;intra;NA;NA;NA;NA;NA
+Lancaster et al. (2005)a;-0.3566594;0.1171067;0.3422085;25;male;NA;Low;Vigorous;150;918;intra;NA;NA;NA;NA;NA
+Lancaster et al. (2005)b;0.0000000;0.1080205;0.3286648;25;male;NA;Low;Vigorous;150;918;intra;NA;NA;NA;NA;NA
+Lancaster et al. (2005)c;-0.3170754;0.1152017;0.3394138;25;male;NA;Low;Vigorous;150;918;intra;NA;NA;NA;NA;NA
