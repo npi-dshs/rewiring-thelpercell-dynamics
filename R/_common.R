@@ -15,7 +15,8 @@ es_path   <- function(...) file.path(proj_root, ...)
   "metafor", "tidyr", "dplyr", "data.table", "stringr", "readr",
   "ggplot2", "reshape2", "cowplot", "gridExtra",
   "forestplot", "metaviz", "meta",
-  "readxl", "patchwork", "scales", "kableExtra"
+  "readxl", "patchwork", "scales", "kableExtra",
+  "plotly", "writexl", "zip"
 )
 .missing <- .required[!(.required %in% rownames(installed.packages()))]
 if (length(.missing)) {

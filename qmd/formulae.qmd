@@ -2,6 +2,17 @@
 title: "Summary of Formulae"
 ---
 
+```{r}
+#| include: false
+for (p in c("R/_common.R", "../R/_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+source(file.path(dirname(p), "_chapter_helpers.R"))
+```
+
+```{r}
+#| echo: false
+page_resources(list(c("Summary of formulae (PDF)", "../data/summary_formulae.pdf", "file-earmark-pdf")))
+```
+
 ## Introduction
 
 Only formulas that were actually used in the calculations are highlighted by placing them in a box to improve readability and to make the key equations easy to identify. Other formulas are included for completeness and conceptual clarity.
@@ -359,4 +370,3 @@ SE_g = \sqrt{V_g}
 }
 $$ \hfill [@introduc2013, p. 27]
 
-## References

@@ -2,14 +2,22 @@ project:
   type: book
   output-dir: _book
   execute-dir: project
+  post-render: R/post_render.R
   resources:
     - R/robins_i_v4.1.R
+    - R/meta_Th1Th2.R
+    - R/_common.R
+    - R/_chapter_helpers.R
     - data/results_rob.xlsx
     - data/summary_formulae.pdf
+    - data/effect_size/*.xlsx
+    - data/effect_size/**/*.csv
+    - data/effect_size_lancaster/**/*.csv
+    - downloads/*
 
 book:
-  title: "Rewiring Immune Regulation Through Acute Exercise"
-  subtitle: "A Systematic Review and Meta-Analysis on TH1 and TH2 Cell Responses - Documenation"
+  title: "Rewiring T Helper Cell Dynamics Through Acute Exercise"
+  subtitle: "A Systematic Review and Meta-Analysis of the TH1 /TH2 Balance - Documenation"
   author:
     - name: "Miriam Ringleb"
       affiliation:
@@ -20,31 +28,49 @@ book:
     - name: "Finn Dreisigacker"
       affiliation:
       - ref: cgn
-      orcid: "https://orcid.org/0009-0008-6419-0751, "
+      orcid: "https://orcid.org/0009-0008-6419-0751"
+    - name: "Christian Puta"
+      affiliation: 
+        - ref: jena-prev
+        - ref: jena-sports
+        - ref: jena-hos
+      orcid: "https://orcid.org/0000-0003-3936-4605"
+    - name: "Wilhelm Bloch"
+      affiliation: 
+        - ref: bloch
+      orcid: "https://orcid.org/0000-0003-1786-8853"
+    - name: "Phillip Zimmer"
+      affiliation: 
+        - ref: zimmer
+      orcid: "https://orcid.org/0000-0001-9631-4503"
+    - name: "Karsten Krüger"
+      affiliation: 
+        - ref: krueger
+      orcid: "https://orcid.org/0000-0003-1506-8254"
     - name: "Florian Javelle"
       affiliation:
       - ref: cgn 
       orcid: "https://orcid.org/0000-0003-4240-2588"
 
-  date: "2026-06-01"
+  # date: "2026-10-07"
   search: true
-  page-footer: "Rewiring Immune Regulation Through Acute Exercise - Documentation"
+  page-footer: "Rewiring T Helper Cell Dynamics Through Acute Exercise - Documentation"
   chapters:
     - index.qmd
     - qmd/formulae.qmd
     - qmd/workspace.qmd
     - qmd/risk-of-bias.qmd
-    - part: "Th1"
+    - part: "T~H~1"
       chapters:
         - qmd/th1-immediate.qmd
         - qmd/th1-2h.qmd
         - qmd/th1-17h.qmd
-    - part: "Th2"
+    - part: "T~H~2"
       chapters:
         - qmd/th2-immediate.qmd
         - qmd/th2-2h.qmd
         - qmd/th2-17h.qmd
-    - part: "Th1/Th2 Ratio"
+    - part: "T~H~1/T~H~2 ratio"
       chapters:
         - qmd/ratio-immediate.qmd
         - qmd/ratio-2h.qmd
@@ -57,6 +83,14 @@ affiliations:
     name: "Center for Interdisciplinary Prevention of Diseases related to Professional Activities, Friedrich-Schiller-University Jena, Jena, Germany"
   - id: jena-sports
     name: "Department of Sports Medicine and Health Promotion, Friedrich-Schiller-University Jena, Jena, Germany"
+  - id: jena-hos
+    name: "Department for Internal Medicine IV (Gastroenterology, Hepatology and Infectious Diseases), Jena University Hospital, Jena, Germany"
+  - id: bloch
+    name: "Department for Molecular and Cellular Sports Medicine, Institute of Cardiovascular Research and Sports Medicine, German Sport University Cologne, Cologne, Germany"
+  - id: zimmer
+    name: "Sports Medicine Research Group, Institute for Sport and Sport Science, TU Dortmund University, Dortmund, Germany"
+  - id: krueger
+    name: "Department of Exercise Physiology and Sports Therapy, Justus-Liebig-Universität Gießen, Gießen, Germany"
 
 execute:
   echo: true
@@ -71,7 +105,7 @@ format:
   html:
     theme:
       light: [yeti, custom.scss]
-    mainfont: "Inter"
+    mainfont: "Arial, Helvetica Neue, Helvetica, Roboto, sans-serif"
     monofont: "f Code"
     fontsize: 15px
     linestretch: 1.75
@@ -79,6 +113,7 @@ format:
     number-sections: true
     code-fold: true
     code-tools: true
+    include-after-body: r-switch.html
   pdf:
     documentclass: scrbook
     papersize: a4

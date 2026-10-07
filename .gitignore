@@ -17,3 +17,16 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# generated at render time
+/downloads/
+/index.html
+/qmd/*.html
+*.rmarkdown
+
+# local tooling (chapter generator + its source backups)
+/qmd/_backup_pre_rswitch/
+/R/gen_chapters.py
+
+# superseded Lancaster workbook (wrong n/3 computation)
+/data/effect_size_lancaster/data_effsize_lancaster.xlsx

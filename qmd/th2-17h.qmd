@@ -1,14 +1,64 @@
-# Th2 — 17 h Post-Exercise
+# T~H~2 - 17 h post-exercise
 
 ```{r}
 #| include: false
-for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+for (p in c("R/_common.R", "../R/_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+source(file.path(dirname(p), "_chapter_helpers.R"))
+knitr::opts_knit$set(root.dir = normalizePath(dirname(dirname(p))))
+knitr::opts_chunk$set(echo = FALSE)
+cfg <- list(
+  id = "th2-17h",
+  outcome = "Th2",
+  win = "pre_post17h",
+  M = "m4",
+  drop_kost = TRUE,
+  tabs = c("M0-meta", "M0-metafor", "M1-meta"),
+  forest = list(w = 12, h = 8, args = "xlim = c(-5, 2), left = \"Lower at post+17h\", right = \"Higher at post+17h\""),
+  asym = "egger",
+  lancaster = FALSE
+)
+chain <- chapter_chain(cfg)
+```
+
+::: {.summary-panel}
+[Summary]{.panel-eyebrow}
+
+## Sensitivity Overview
+
+`r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k)`
+
+```{r}
+sens_overview_table(cfg, chain)
+```
+
+```{r}
+#| fig-height: 2.4
+#| out-width: 100%
+sens_overview_plot(cfg, chain)
+```
+
+## Model Ledger
+
+```{r}
+ledger_table(cfg, chain)
+```
+:::
+
+[Analysis]{.panel-eyebrow .analysis-eyebrow}
+
+```{r}
+r_switch(cfg)
+```
+
+```{r}
+chapter_resources(cfg, chain)
 ```
 
 ## Data Import
 
-```{r th2-17h-data}
-fullData <- load_es("book/data/effect_size/Th2/pre_post17h/Th2_pre_post17h_r_050.csv")
+```{r}
+#| results: asis
+sec(sec_data)
 ```
 
 ## Primary Meta-Analysis
@@ -17,115 +67,102 @@ fullData <- load_es("book/data/effect_size/Th2/pre_post17h/Th2_pre_post17h_r_050
 **Kostrzewa-Nowak et al. (2019)** is removed before pooling and the model re-fitted.
 :::
 
-::: panel-tabset
-### {meta}
-```{r th2-17h-main-meta}
-m4 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
-                    random = TRUE, method.tau = "HE", fixed = FALSE,
-                    hakn = TRUE, prediction = TRUE, sm = "SMD")
-print(m4, overall = TRUE)
+```{r}
+#| results: asis
+sec(sec_primary)
 ```
-
-### {metafor}
-```{r th2-17h-main-metafor}
-metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
-             method = "HE", test = "knha")
-```
-
-### Adapted Model {meta}
-```{r th2-17h-main-adapted}
-fullData <- drop_kostrzewa19(fullData)
-m4 <- meta::metagen(g, seTE = SE_g, data = fullData, studlab = paste(Study),
-                    random = TRUE, method.tau = "HE", hakn = TRUE,
-                    prediction = TRUE, sm = "SMD", fixed = FALSE)
-print(m4, overall = TRUE)
-```
-:::
 
 ## Outlier Detection
 
-```{r th2-17h-outliers}
-outlier <- metaoutliers(y = m4$TE, s2 = m4$seTE^2, model = "RE")
-stdres <- outlier$std.res
-```
-
 ```{r}
-#| label: tbl-th2-17h-resid
-#| tbl-cap: "Standardised residuals"
-fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
-```
-
-```{r th2-17h-outliers-plot}
-plot_stdres(stdres)
+#| results: asis
+sec(sec_outlier)
 ```
 
 ::: {.callout-note}
 No outlier.
 :::
 
+[r = .50]{.callout-r}
+
 ## Funnel Plot & Influential Cases
 
-```{r th2-17h-funnel}
-#| fig-width: 10
-#| fig-height: 8
-#| out-width: 100%
-funnel_ce(m4) #  ref = 0.2403)# , xlim = c(-4.5, 3), ylim = c(2, 0))
-```
-
 ```{r}
-#| label: tbl-th2-17h-dfbetas
-#| tbl-cap: "DFBETAS influence diagnostics"
-overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
-df_betas <- dfbetas(overall_metafor)
-fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+#| results: asis
+sec(sec_funnel)
 ```
 
 ::: {.callout-note}
 No influential case.
 :::
 
+[r = .50]{.callout-r}
+
 ## Forest Plot
 
-```{r th2-17h-forest}
-#| fig-width: 12
-#| fig-height: 8
-#| out-width: 100%
-forest_main(m4, xlim = c(-5, 2), left = "Lower at post+17h", right = "Higher at post+17h")
+```{r}
+#| results: asis
+sec(sec_forest)
 ```
 
 ## Asymmetry Test
 
-```{r th2-17h-egger}
-metabias(m4, method = "linreg")
+```{r}
+#| results: asis
+sec(sec_asym)
 ```
 
 ::: {.callout-note}
 No asymmetry -> no trim-and-fill
 :::
 
+[r = .50]{.callout-r}
+
+```{=html}
+<div class="r-fixed-start"></div>
+```
+
+```{r}
+#| include: false
+use_main_r()
+```
+
 ## Moderator Analyses
+
+`r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k, r = R_MAIN)`
 
 ::: {.panel-tabset}
 
 ### Risk of Bias
 
-#### Model
+#### Model {.unnumbered}
 ```{r th2-17h-mod-rob}
 m1mod <- update(m4, subgroup = RoB, print.subgroup.name = TRUE, fixed = FALSE)
-print(m1mod, overall = FALSE)
+report(m1mod, caption = "Subgroup analysis - Risk of Bias")
 ```
 
 ::: {.callout-note}
 Not significant results
 :::
 
-#### Forrest Plot
+#### Forest Plot {.unnumbered}
+
+::: panel-tabset
+##### Interactive
+::: forest-scroll
+```{r th2-17h-mod-rob-forest-plotly}
+#| fig-height: 6
+#| out-width: 100%
+forest_sub_plotly(m1mod, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
+```
+:::
+
+##### RevMan5
 ```{r th2-17h-mod-rob-forest}
-#| fig-width: 10
-#| fig-height: 8
 #| out-width: 100%
 forest_sub(m1mod, xlim = c(-2, 5), left = "Lower at post+17h", right = "Higher at post+17h")
 ```
+:::
 
 ::: notebox
 **Sex:** all retained arms are male, so no sex subgroup analysis is performed.
@@ -139,7 +176,7 @@ m1_c <- meta::metagen(g, seTE = SE_g, data = fullData_bis, studlab = paste(Study
                       random = TRUE, method.tau = "HE", hakn = TRUE,
                       prediction = TRUE, sm = "SMD", fixed = FALSE)
 m3mod <- update(m1_c, subgroup = intensity, print.subgroup.name = TRUE, fixed = FALSE)
-print(m3mod, overall = FALSE)
+report(m3mod, caption = "Subgroup analysis - Intensity")
 ```
 
 ::: {.callout-note}
@@ -150,9 +187,9 @@ Not significant but 10 vs 1
 
 ::: {.panel-tabset}
 
-#### Age
+#### Age {.unnumbered}
 ```{r th2-17h-mr-age}
-m1mr <- metareg(m4, age); summary(m1mr)
+m1mr <- metareg(m4, age); report(m1mr, caption = "Meta-regression - Age")
 ```
 
 ::: {.callout-note}
@@ -166,9 +203,9 @@ Not significant
 bubble_reg(m1mr, "age", "Age (years)")
 ```
 
-#### BMI
+#### BMI {.unnumbered}
 ```{r th2-17h-mr-bmi}
-m2mr <- metareg(m4, bmi); summary(m2mr)
+m2mr <- metareg(m4, bmi); report(m2mr, caption = "Meta-regression - BMI")
 ```
 
 ::: {.callout-important}
@@ -182,63 +219,63 @@ Significant
 bubble_reg(m2mr, "bmi", "BMI (kg/m²)")
 ```
 
-#### Duration
+#### Duration {.unnumbered}
 ```{r th2-17h-mr-duration}
-m3mr <- metareg(m4, duration); summary(m3mr)
+m3mr <- metareg(m4, duration); report(m3mr, caption = "Meta-regression - Duration")
 ```
 
 ::: {.callout-note}
 Not significant
 :::
 
-#### Dose
+#### Dose {.unnumbered}
 ```{r th2-17h-mr-dose}
-m4mr <- metareg(m4, dose); summary(m4mr)
+m4mr <- metareg(m4, dose); report(m4mr, caption = "Meta-regression - Dose")
 ```
 
 ::: {.callout-note}
 Not significant
 :::
 
-#### IFN
+#### IFN {.unnumbered}
 ```{r th2-17h-mr-ifn}
-m6mr <- metareg(m4, IFN); summary(m6mr)
+m6mr <- metareg(m4, IFN); report(m6mr, caption = "Meta-regression - IFN")
 ```
 
 ::: {.callout-note}
 Not significant
 :::
 
-#### IL_4
+#### IL_4 {.unnumbered}
 ```{r th2-17h-mr-il4}
-m7mr <- metareg(m4, IL_4); summary(m7mr)
+m7mr <- metareg(m4, IL_4); report(m7mr, caption = "Meta-regression - IL_4")
 ```
 
 ::: {.callout-note}
 Not significant
 :::
 
-#### IL_6
+#### IL_6 {.unnumbered}
 ```{r th2-17h-mr-il6}
-m8mr <- metareg(m4, IL_6); summary(m8mr)
+m8mr <- metareg(m4, IL_6); report(m8mr, caption = "Meta-regression - IL_6")
 ```
 
 ::: {.callout-important}
 Significant
 :::
 
-#### IL_10
+#### IL_10 {.unnumbered}
 ```{r th2-17h-mr-il10}
-m9mr <- metareg(m4, IL_10); summary(m9mr)
+m9mr <- metareg(m4, IL_10); report(m9mr, caption = "Meta-regression - IL_10")
 ```
 
 ::: {.callout-note}
 Not significant
 :::
 
-#### IL_2
+#### IL_2 {.unnumbered}
 ```{r th2-17h-mr-il2}
-m10mr <- metareg(m4, IL_2); summary(m10mr)
+m10mr <- metareg(m4, IL_2); report(m10mr, caption = "Meta-regression - IL_2")
 ```
 
 ::: {.callout-note}
@@ -251,9 +288,12 @@ Not significant
 
 ## Multivariate Models
 
+`r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k, r = R_MAIN)`
+
 ```{r th2-17h-multivariate}
-rma(yi = g, vi = V_g, mods = ~ intensity * duration, data = fullData,
-    slab = paste(Study), method = "HE", test = "knha")
+report(rma(yi = g, vi = V_g, mods = ~ intensity * duration, data = fullData,
+    slab = paste(Study), method = "HE", test = "knha"),
+       caption = "Multivariate meta-regression")
 ```
 
 ::: {.callout-note}

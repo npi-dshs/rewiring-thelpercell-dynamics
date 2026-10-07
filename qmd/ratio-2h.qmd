@@ -1,8 +1,57 @@
-# Th1/Th2 Ratio - ~2 h Post-Exercise
+# T~H~1/T~H~2 ratio - 2 h post-exercise
 
 ```{r}
 #| include: false
-for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+for (p in c("R/_common.R", "../R/_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+source(file.path(dirname(p), "_chapter_helpers.R"))
+knitr::opts_knit$set(root.dir = normalizePath(dirname(dirname(p))))
+knitr::opts_chunk$set(echo = FALSE)
+cfg <- list(
+  id = "ratio-2h",
+  outcome = "Ratio",
+  win = "pre_post+2h",
+  M = "m5",
+  drop_kost = FALSE,
+  tabs = c("M0-meta", "M0-metafor"),
+  forest = list(w = 12, h = 8, args = "xlim = c(-4, 3), left = \"Lower at post+2h\", right = \"Higher at post+2h\""),
+  asym = "none",
+  lancaster = TRUE
+)
+chain <- chapter_chain(cfg)
+```
+
+::: {.summary-panel}
+[Summary]{.panel-eyebrow}
+
+## Sensitivity Overview
+
+`r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k)`
+
+```{r}
+sens_overview_table(cfg, chain)
+```
+
+```{r}
+#| fig-height: 2.4
+#| out-width: 100%
+sens_overview_plot(cfg, chain)
+```
+
+## Model Ledger
+
+```{r}
+ledger_table(cfg, chain)
+```
+:::
+
+[Analysis]{.panel-eyebrow .analysis-eyebrow}
+
+```{r}
+r_switch(cfg)
+```
+
+```{r}
+chapter_resources(cfg, chain)
 ```
 
 ## Data Import
@@ -11,77 +60,53 @@ for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(
 The ~2 h window (`effect_size/Ratio/pre_post+2h/Ratio_pre_post+2h_r_050.csv`) is reported for the main analysis, outlier check, funnel, and forest only; the limited data do not support moderator modelling. No study is excluded a priori.
 :::
 
-```{r ratio-2h-data}
-fullData <- load_es("book/data/effect_size/Ratio/pre_post+2h/Ratio_pre_post+2h_r_050.csv")
+```{r}
+#| results: asis
+sec(sec_data)
 ```
 
 ## Primary Meta-Analysis
 
-::: panel-tabset
-### {meta}
-```{r ratio-2h-main-meta}
-m5 <- meta::metagen(TE = g, seTE = SE_g, data = fullData, studlab = paste(Study),
-                    random = TRUE, method.tau = "HE", fixed = FALSE,
-                    hakn = TRUE, prediction = TRUE, sm = "SMD")
-print(m5, overall = TRUE)
+```{r}
+#| results: asis
+sec(sec_primary)
 ```
-
-### {metafor}
-```{r ratio-2h-main-metafor}
-metafor::rma(yi = g, sei = SE_g, data = fullData, slab = paste(Study),
-             method = "HE", test = "knha")
-```
-:::
 
 ## Outlier Detection
 
-```{r ratio-2h-outliers}
-outlier <- metaoutliers(y = m5$TE, s2 = m5$seTE^2, model = "RE")
-stdres <- outlier$std.res
-```
-
 ```{r}
-#| label: tbl-ratio-2h-resid
-#| tbl-cap: "Standardised residuals"
-fullData |> select(Short_reference, g) |> mutate(std_res = outlier$std.res) |> nice_table()
-```
-
-```{r ratio-2h-outliers-plot}
-plot_stdres(stdres)
+#| results: asis
+sec(sec_outlier)
 ```
 
 ::: {.callout-note}
 No outlier.
 :::
 
+[r = .50]{.callout-r}
+
 ## Funnel Plot & Influential Cases
 
-```{r ratio-2h-funnel}
-#| fig-width: 10
-#| fig-height: 8
-#| out-width: 100%
-funnel_ce(m5)# ref = 0.3544, xlim = c(-1.5, 2), ylim = c(0.6, 0))
-```
-
 ```{r}
-#| label: tbl-ratio-2h-dfbetas
-#| tbl-cap: "DFBETAS influence diagnostics"
-overall_metafor <- rma.mv(g, VE_g, tdist = TRUE, data = fullData)
-df_betas <- dfbetas(overall_metafor)
-fullData |> select(Short_reference, g) |> mutate(dfbetas = df_betas) |> nice_table()
+#| results: asis
+sec(sec_funnel)
 ```
 
 ::: notebox
 One value above 1 and one below −1 were identified as influential cases; neither is an outlier, so all outcomes are retained.
 :::
 
+[r = .50]{.callout-r}
+
+::: {.inconsistency}
+**Inkonsistenz:** Laut R-Skript liegt ein DFBETAS-Wert über 1 und einer unter -1. Gerechnet liegt kein Wert über |1| (größter Betrag: Lancaster et al. (2005)b, 0.90).
+:::
+
 ## Forest Plot
 
-```{r ratio-2h-forest}
-#| fig-width: 12
-#| fig-height: 8
-#| out-width: 100%
-forest_main(m5, xlim = c(-4, 3), left = "Lower at post+2h", right = "Higher at post+2h")
+```{r}
+#| results: asis
+sec(sec_forest)
 ```
 
 ## Asymmetry Test
@@ -89,3 +114,10 @@ forest_main(m5, xlim = c(-4, 3), left = "Lower at post+2h", right = "Higher at p
 ::: warnbox
 **Note:** the number of studies in this window is too small to reliably test for small-study effects (minimum *k* = 10). No Egger's test or trim-and-fill is performed.
 :::
+
+## Sensitivity Analyses
+
+```{r}
+#| results: asis
+sec(sec_lancaster)
+```

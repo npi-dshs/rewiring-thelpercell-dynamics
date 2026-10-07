@@ -1,15 +1,40 @@
-# Background {.unnumbered}
+# Welcome {.unnumbered}
 
 <!-- ::: warnbox
 **Generative artificial intelligence tools were used in the preparation of this document, particularly for language refinement, document structuring, and the development and revision of code. All content, analyses, results, and interpretations were critically reviewed, validated, and are the sole responsibility of the author.**
 ::: -->
 
-This site documents the complete analysis pipeline behind our systematic review and meta-analysis of T-helper-cell responses to acute exercise. For each outcome - **Th1**, **Th2**, and the **Th1/Th2 ratio** - the chapters reproduce the random-effects meta-analysis across three post-exercise time windows (immediate, ~2 h, and ~17 h), together with outlier and influence diagnostics, small-study/publication-bias checks, and moderator and meta-regression analyses. Study quality is appraised with ROBINS-I, and the underlying effect-size computations are documented throughout. The raw data and the full analysis script are available below for reproducibility.
+```{=html}
+<div id="page-resources" hidden>
+  <a href="https://github.com/npi-dshs/rewiring-thelpercell-dynamics" target="_blank" rel="noopener" data-icon="github">GitHub repository</a>
+</div>
+<div id="keep-title-meta" hidden></div>
+```
 
-## Downloads {.unnumbered}
+::: {.welcome-lead}
+This site documents the complete analysis pipeline behind our systematic review and meta-analysis of T-helper-cell responses to acute exercise.
+:::
 
-| Resource | File |
-|:---------|:-----|
-| Raw data - effect-size computation | [`effect_computation_Th1Th2.xlsx`](data/effect_size/effect_computation_Th1Th2.xlsx){download="effect_computation_Th1Th2.xlsx"} |
-| Analysis script | [`meta_Th1Th2.R`](R/meta_Th1Th2.R){download="meta_Th1Th2.R"} |
-| Summary Formulae | [`formulae.pdf`](data/summary_formulae.pdf){download="formulae.pdf"} |
+::: {.welcome-body}
+For each outcome - **Th1**, **Th2**, and the **Th1/Th2 ratio** - the chapters reproduce the random-effects meta-analysis across three post-exercise time windows (immediate, ~2 h, and ~17 h), together with outlier and influence diagnostics, small-study/publication-bias checks, and moderator and meta-regression analyses.
+
+Study quality was assessed with ROBINS-I, and the underlying effect-size computations are documented throughout. The raw data and the full analysis script are available for reproducibility.
+:::
+
+```{=html}
+<div class="welcome-map">
+  <div class="panel-eyebrow">Analyses</div>
+  <div class="map-rows">
+    <div class="map-row"><span class="map-label">T<sub>H</sub>1</span><a href="qmd/th1-immediate.html">Immediately</a><a href="qmd/th1-2h.html">2 h</a><a href="qmd/th1-17h.html">17 h</a></div>
+    <div class="map-row"><span class="map-label">T<sub>H</sub>2</span><a href="qmd/th2-immediate.html">Immediately</a><a href="qmd/th2-2h.html">2 h</a><a href="qmd/th2-17h.html">17 h</a></div>
+    <div class="map-row"><span class="map-label">T<sub>H</sub>1/T<sub>H</sub>2 ratio</span><a href="qmd/ratio-immediate.html">Immediately</a><a href="qmd/ratio-2h.html">2 h</a><a href="qmd/ratio-17h.html">17 h</a></div>
+  </div>
+
+  <div class="panel-eyebrow">Methods</div>
+  <div class="map-chips">
+    <a href="qmd/formulae.html"><i class="bi bi-calculator"></i> Summary of Formulae</a>
+    <a href="qmd/workspace.html"><i class="bi bi-gear"></i> Workspace Setup</a>
+    <a href="qmd/risk-of-bias.html"><i class="bi bi-clipboard-check"></i> Risk of Bias (ROBINS-I)</a>
+  </div>
+</div>
+```

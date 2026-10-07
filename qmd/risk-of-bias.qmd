@@ -2,12 +2,17 @@
 
 ```{r}
 #| include: false
-for (p in c("R/_common.R", "../_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+for (p in c("R/_common.R", "../R/_common.R", "book/R/_common.R")) if (file.exists(p)) { source(p); break }
+source(file.path(dirname(p), "_chapter_helpers.R"))
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-::: infobox
-**Downloads:** [ROBINS-I Data (xlsx)](../data/results_rob.xlsx){download="data_ROBINS_I.xlsx"} · [ROBINS-I R-Script](../R/mod_RoB.R){download="mod_ROBINS_I.R"}
-:::
+```{r}
+page_resources(list(
+  c("ROBINS-I data (XLSX)", "../data/results_rob.xlsx", "file-earmark-spreadsheet"),
+  c("ROBINS-I R script", "../R/robins_i_v4.1.R", "file-earmark-code")
+))
+```
 
 ```{r rob-data}
 # -------------------------
@@ -36,8 +41,9 @@ data_ConFac_notes <- tribble(
 )
 ```
 
-```{r rob-plot}
-#| label: rob-plot
+```{r}
+#| label: fig-rob
+#| fig-cap: "Results of the risk of bias assessment across all included studies. Risk of bias due to confounding (D1), risk of bias in selection of participants into the study or into the analysis (D3), risk of bias due to deviations from intended interventions (D4), risk of bias due to missing data (D5), risk of bias arising from measurement of the outcome (D6), and risk of bias in selection of the reported result (D7). D1.1 assesses no exercise 24h-48h pre-intervention, D1.2 assesses standardized food intake, D1.3 assesses supplementation, D1.4 assesses identical warm-up, D1.5 assesses intensity control, D1.6 assesses homogeneity of the group."
 #| fig-width: 14
 #| fig-height: 10
 #| out-width: 100%
@@ -242,14 +248,3 @@ final_plot <- ((p_A | p_B) + plot_layout(widths = c(7, 6)) & common_theme) /
 
 final_plot
 ```
-
-::: infobox
-**Confounding-factor items (Panel B).**
-
--   **D1.1** - No exercise 24-48 h pre-intervention?
--   **D1.2** - Standardized food intake among participants (e.g. all fasted or standardized breakfast)?
--   **D1.3** - No caffeine, acute medication, or alcohol 24 h before exercise?
--   **D1.4** - Identical warm-up between participants?
--   **D1.5** - Good way to assess the controlled intensity (HR control, VO₂, VT)?
--   **D1.6** - Homogeneity of the group (sex, age, BMI, training status)?
-:::

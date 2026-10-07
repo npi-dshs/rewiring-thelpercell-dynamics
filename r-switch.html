@@ -1,0 +1,93 @@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // table numbers: "Tab. n" for every captioned table; hidden r-variants are skipped
+  function numberTables() {
+    var n = 0;
+    document.querySelectorAll("main table caption").forEach(function (c) {
+      var v = c.closest(".r-variant");
+      if (v && !v.classList.contains("active")) return;
+      c.setAttribute("data-num", ++n);
+    });
+  }
+
+  // resources block under the TOC, built from the page's #page-resources links
+  var res = document.getElementById("page-resources");
+  var toc = document.querySelector("#quarto-margin-sidebar nav#TOC") || document.querySelector("nav#TOC");
+  var margin = document.getElementById("quarto-margin-sidebar");
+  if (res && (toc || margin)) {
+    var box = document.createElement("div");
+    box.className = "side-resources";
+    box.innerHTML = "<h6>Resources</h6>";
+    res.querySelectorAll("a").forEach(function (a) {
+      var label = a.textContent;
+      a.innerHTML = '<i class="bi bi-' + (a.dataset.icon || "download") + '"></i><span>' + label + "</span>";
+      if (/^Data - r = /.test(label)) a.id = "dl-csv";
+      if (a.classList.contains("is-ph")) {
+        a.title = "Placeholder";
+        a.addEventListener("click", function (e) { e.preventDefault(); });
+      }
+      box.appendChild(a);
+    });
+    if (toc) toc.parentNode.insertBefore(box, toc.nextSibling);
+    else { box.classList.add("no-toc"); margin.appendChild(box); }
+    res.remove();
+  }
+
+  var bar = document.getElementById("r-switch");
+  if (!bar) { numberTables(); return; }
+
+  var sel = document.getElementById("r-select");
+  var file = bar.querySelector(".r-file");
+  var prefix = bar.dataset.prefix || "";
+
+  // keep the switch sticky over the whole chapter (move it out of its section)
+  var main = document.querySelector("main#quarto-document-content") || document.querySelector("main");
+  var host = bar.closest("section");
+  if (main && host) main.insertBefore(bar, host.nextSibling);
+  function setTop() {
+    var nav = document.querySelector(".quarto-secondary-nav");
+    var h = nav && nav.offsetParent !== null ? nav.getBoundingClientRect().height : 0;
+    bar.style.top = (h + 8) + "px";
+  }
+  window.addEventListener("resize", setTop); setTop();
+
+  function setR(r) {
+    sel.value = r;
+    file.textContent = prefix + r + ".csv";
+    document.querySelectorAll(".r-variant").forEach(function (el) {
+      el.classList.toggle("active", el.dataset.r === r);
+    });
+    document.querySelectorAll(".sens-table tbody tr").forEach(function (tr) {
+      tr.classList.toggle("is-current", tr.dataset.r === r);
+    });
+    var dl = document.getElementById("dl-csv");
+    if (dl) {
+      dl.querySelector("span").textContent = "Data - r = ." + r.slice(1);
+      if (dl.dataset.pattern) {
+        dl.href = dl.dataset.pattern.replace("{r}", r);
+        dl.setAttribute("download", dl.href.split("/").pop());
+      }
+    }
+    numberTables();
+    window.dispatchEvent(new Event("resize"));
+  }
+  sel.addEventListener("change", function () { setR(sel.value); });
+  document.querySelectorAll(".sens-table tbody tr").forEach(function (tr) {
+    tr.addEventListener("click", function () {
+      setR(tr.dataset.r);
+      bar.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+  setR("050");
+
+  // grey out the switch once the r = .50-only sections are reached
+  var marker = document.querySelector(".r-fixed-start");
+  function checkFixed() {
+    if (!marker) return;
+    bar.classList.toggle("is-fixed", marker.getBoundingClientRect().top < bar.offsetHeight + 16);
+  }
+  window.addEventListener("scroll", checkFixed, { passive: true });
+  checkFixed();
+
+});
+</script>
