@@ -25,9 +25,9 @@ Study quality was assessed with ROBINS-I, and the underlying effect-size computa
 <div class="welcome-map">
   <div class="panel-eyebrow">Analyses</div>
   <div class="map-rows">
-    <div class="map-row"><span class="map-label">T<sub>H</sub>1</span><a href="qmd/th1-immediate.html">Immediately</a><a href="qmd/th1-2h.html">2 h</a><a href="qmd/th1-17h.html">17 h</a></div>
-    <div class="map-row"><span class="map-label">T<sub>H</sub>2</span><a href="qmd/th2-immediate.html">Immediately</a><a href="qmd/th2-2h.html">2 h</a><a href="qmd/th2-17h.html">17 h</a></div>
-    <div class="map-row"><span class="map-label">T<sub>H</sub>1/T<sub>H</sub>2 ratio</span><a href="qmd/ratio-immediate.html">Immediately</a><a href="qmd/ratio-2h.html">2 h</a><a href="qmd/ratio-17h.html">17 h</a></div>
+    <div class="map-row"><span class="map-label">T<sub>H1</sub></span><a href="qmd/th1-immediate.html">Immediately</a><a href="qmd/th1-2h.html">2 h</a><a href="qmd/th1-17h.html">17 h</a></div>
+    <div class="map-row"><span class="map-label">T<sub>H2</sub></span><a href="qmd/th2-immediate.html">Immediately</a><a href="qmd/th2-2h.html">2 h</a><a href="qmd/th2-17h.html">17 h</a></div>
+    <div class="map-row"><span class="map-label">T<sub>H1</sub>/T<sub>H2</sub> ratio</span><a href="qmd/ratio-immediate.html">Immediately</a><a href="qmd/ratio-2h.html">2 h</a><a href="qmd/ratio-17h.html">17 h</a></div>
   </div>
 
   <div class="panel-eyebrow">Methods</div>

@@ -627,7 +627,7 @@ sens_overview_table <- function(cfg, chain) {
   sig <- any(vapply(chain, function(ch) ch[[rep]]$pval.random < .05, logical(1)))
   knitr::asis_output(paste0(
     '\n```{=html}\n<div class="table-scroll"><table class="table table-sm sens-table">',
-    '<caption>Sensitivity analysis - ', mlab(rep), '</caption><thead><tr>',
+    '<caption>Overview - ', mlab(rep), '</caption><thead><tr>',
     '<th>Effect size file</th><th><i>k</i></th><th><i>g</i></th><th>95% CI</th><th><i>p</i></th>',
     '<th>&tau;&sup2;</th><th><i>I</i>&sup2;</th><th>95% PI</th></tr></thead><tbody>',
     paste(rows, collapse = ""), '</tbody>',
@@ -654,7 +654,7 @@ ledger_table <- function(cfg, chain) {
                tau2 = x$tau2, I2 = x$I2, Status = if (id == reported_id(cfg)) "Reported" else "")
   }))
   names(df) <- c("Model", "Excluded", "<i>k</i>", "<i>g</i>", "95% CI", .PH, "&tau;&sup2;", "<i>I</i>&sup2;", "Status")
-  tab <- .html_table(df, paste0("Model ledger - ", R_LABEL(R_MAIN)),
+  tab <- .html_table(df, paste0("Model overview - ", R_LABEL(R_MAIN)),
                      c("l", "l", "r", "r", "l", "r", "r", "r", "l"))
   tab <- .note(tab, if (any(vapply(ch, function(m) m$pval.random < .05, logical(1)))) .SIG else "")
   knitr::asis_output(paste0('\n```{=html}\n<div class="ledger-wrap">', as.character(tab), '</div>\n```\n'))
@@ -802,7 +802,7 @@ sens_lancaster <- function(cfg, r) {
   fits <- list(
     `Main analysis` = .fit(dm),
     `Lancaster et al. (2005) - <i>n</i> / 3` = .fit(dl),
-    `Pre/post designs only` = .fit(dplyr::filter(dm, !grepl("^Lancaster", Study)))
+    `Excluding crossover design - Lancaster et al. (2005)` = .fit(dplyr::filter(dm, !grepl("^Lancaster", Study)))
   )
   df <- do.call(rbind, lapply(names(fits), function(n) cbind(Analysis = n, .row_of(fits[[n]])[, 1:6])))
   names(df) <- c("Analysis", "<i>k</i>", "<i>g</i>", "95% CI", .PH, "&tau;&sup2;", "<i>I</i>&sup2;")
@@ -899,7 +899,7 @@ chapter_downloads <- function(cfg, chain) {
       dl <- model_data(cfg, load_es(es_file(cfg, r, LANC_DIR)), id)
       rbind(cbind(r = as.numeric(r) / 100, analysis = "Main analysis", num(.fit(dm))),
             cbind(r = as.numeric(r) / 100, analysis = "Lancaster et al. (2005) - n / 3", num(.fit(dl))),
-            cbind(r = as.numeric(r) / 100, analysis = "Pre/post designs only",
+            cbind(r = as.numeric(r) / 100, analysis = "Excluding crossover design - Lancaster et al. (2005)",
                   num(.fit(dplyr::filter(dm, !grepl("^Lancaster", Study))))))
     }))
   }

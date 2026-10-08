@@ -113,7 +113,7 @@ ex_out <- metaoutliers(y = ex_m$TE, s2 = ex_m$seTE^2, model = "RE")
 ex_dfb <- dfbetas(rma.mv(g, VE_g, tdist = TRUE, data = ex_dat))[[1]]
 ```
 
-`r badge("M1", "Primary", ex_m$k)` [T~H~1 - 17 h post-exercise - r = .50]{.panel-eyebrow .eyebrow-plain}
+`r badge("M1", "Primary", ex_m$k)` [T~H1~ - 17 h post-exercise - r = .50]{.panel-eyebrow .eyebrow-plain}
 
 ::: panel-tabset
 ### Standardised residuals

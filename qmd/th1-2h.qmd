@@ -1,4 +1,4 @@
-# T~H~1 - 2 h post-exercise
+# T~H1~ - 2 h post-exercise
 
 ```{r}
 #| include: false
@@ -23,7 +23,7 @@ chain <- chapter_chain(cfg)
 ::: {.summary-panel}
 [Summary]{.panel-eyebrow}
 
-## Sensitivity Overview
+## Overview
 
 `r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k)`
 
@@ -37,7 +37,7 @@ sens_overview_table(cfg, chain)
 sens_overview_plot(cfg, chain)
 ```
 
-## Model Ledger
+## Model Overview
 
 ```{r}
 ledger_table(cfg, chain)
@@ -91,16 +91,6 @@ No outcome has standardized residuals above 3 or below -3.
 #| results: asis
 sec(sec_funnel)
 ```
-
-::: notebox
-One value below −1 and one above 1 were identified as influential cases. Neither is an outlier (Kostrzewa-Nowak & Nowak (2020a)a and Tsubakihara et al. (2012)); all outcomes are retained.
-:::
-
-[r = .50]{.callout-r}
-
-::: {.inconsistency}
-**Inkonsistenz:** Die Notiz wurde im R-Skript aus Th1 immediate übernommen. Kostrzewa-Nowak & Nowak (2020a)a und Tsubakihara et al. (2012) sind im +2 h-Datensatz nicht enthalten. Kein DFBETAS-Wert liegt über |1| (größter Betrag: Steensberg et al. (2001), -0.88).
-:::
 
 ## Forest Plot
 

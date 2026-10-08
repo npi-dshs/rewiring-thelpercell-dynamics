@@ -1,4 +1,4 @@
-# T~H~1/T~H~2 ratio - 2 h post-exercise
+# T~H1~/T~H2~ ratio - 2 h post-exercise
 
 ```{r}
 #| include: false
@@ -23,7 +23,7 @@ chain <- chapter_chain(cfg)
 ::: {.summary-panel}
 [Summary]{.panel-eyebrow}
 
-## Sensitivity Overview
+## Overview
 
 `r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k)`
 
@@ -37,7 +37,7 @@ sens_overview_table(cfg, chain)
 sens_overview_plot(cfg, chain)
 ```
 
-## Model Ledger
+## Model Overview
 
 ```{r}
 ledger_table(cfg, chain)
@@ -91,16 +91,6 @@ No outlier.
 #| results: asis
 sec(sec_funnel)
 ```
-
-::: notebox
-One value above 1 and one below −1 were identified as influential cases; neither is an outlier, so all outcomes are retained.
-:::
-
-[r = .50]{.callout-r}
-
-::: {.inconsistency}
-**Inkonsistenz:** Laut R-Skript liegt ein DFBETAS-Wert über 1 und einer unter -1. Gerechnet liegt kein Wert über |1| (größter Betrag: Lancaster et al. (2005)b, 0.90).
-:::
 
 ## Forest Plot
 

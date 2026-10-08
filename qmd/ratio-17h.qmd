@@ -1,4 +1,4 @@
-# T~H~1/T~H~2 ratio - 17 h post-exercise
+# T~H1~/T~H2~ ratio - 17 h post-exercise
 
 ```{r}
 #| include: false
@@ -23,7 +23,7 @@ chain <- chapter_chain(cfg)
 ::: {.summary-panel}
 [Summary]{.panel-eyebrow}
 
-## Sensitivity Overview
+## Overview
 
 `r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k)`
 
@@ -37,7 +37,7 @@ sens_overview_table(cfg, chain)
 sens_overview_plot(cfg, chain)
 ```
 
-## Model Ledger
+## Model Overview
 
 ```{r}
 ledger_table(cfg, chain)
@@ -53,8 +53,6 @@ r_switch(cfg)
 ```{r}
 chapter_resources(cfg, chain)
 ```
-
-## Data Import
 
 ```{r}
 #| results: asis
@@ -80,14 +78,10 @@ sec(sec_outlier)
 ```
 
 ::: {.callout-note}
-No outlier.
+However, when r = .50, Steensberg et al. (2001) has z = -3.10 and is therefore an outlier (|z| ≥ 3). The study is not influential (DFBETAS = -0.88), so according to the decision rule (outlier and influential), it remains in the model. Without Steensberg: g = 0.63 [0.31; 0.94] instead of 0.51 [0.08; 0.94], still significant. At r = .70, the study would also be influential (DFBETAS = -1.11).
 :::
 
 [r = .50]{.callout-r}
-
-::: {.inconsistency}
-**Inkonsistenz:** Im R-Skript steht „No outlier“. Bei r = .50 hat Steensberg et al. (2001) einen standardisierten Residualwert von z = -3.10 und liegt damit über der Outlier-Grenze |z| ≥ 3. In Th1 17 h wurde derselbe Fall als Outlier gewertet und ausgeschlossen (M2).
-:::
 
 ## Funnel Plot & Influential Cases
 

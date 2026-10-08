@@ -1,4 +1,4 @@
-# T~H~2 - 17 h post-exercise
+# T~H2~ - 17 h post-exercise
 
 ```{r}
 #| include: false
@@ -23,7 +23,7 @@ chain <- chapter_chain(cfg)
 ::: {.summary-panel}
 [Summary]{.panel-eyebrow}
 
-## Sensitivity Overview
+## Overview
 
 `r badge(reported_id(cfg), MODEL_LABEL[[reported_id(cfg)]], chain[[R_MAIN]][[reported_id(cfg)]]$k)`
 
@@ -37,7 +37,7 @@ sens_overview_table(cfg, chain)
 sens_overview_plot(cfg, chain)
 ```
 
-## Model Ledger
+## Model Overview
 
 ```{r}
 ledger_table(cfg, chain)
@@ -53,8 +53,6 @@ r_switch(cfg)
 ```{r}
 chapter_resources(cfg, chain)
 ```
-
-## Data Import
 
 ```{r}
 #| results: asis

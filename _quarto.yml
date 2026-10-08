@@ -60,17 +60,17 @@ book:
     - qmd/formulae.qmd
     - qmd/workspace.qmd
     - qmd/risk-of-bias.qmd
-    - part: "T~H~1"
+    - part: "T~H1~"
       chapters:
         - qmd/th1-immediate.qmd
         - qmd/th1-2h.qmd
         - qmd/th1-17h.qmd
-    - part: "T~H~2"
+    - part: "T~H2~"
       chapters:
         - qmd/th2-immediate.qmd
         - qmd/th2-2h.qmd
         - qmd/th2-17h.qmd
-    - part: "T~H~1/T~H~2 ratio"
+    - part: "T~H1~/T~H2~ ratio"
       chapters:
         - qmd/ratio-immediate.qmd
         - qmd/ratio-2h.qmd
