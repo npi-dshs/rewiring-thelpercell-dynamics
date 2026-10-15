@@ -480,7 +480,7 @@ nice_table <- function(x, digits = 3, caption = NULL, col_names = NULL, align = 
     rows <- list(
       c("<i>k</i>", x$k, "", ""),
       c("Estimate", .f2(x$b[1]), .ci(x$ci.lb, x$ci.ub),
-        sprintf("%s = %s, %s", if (x$test == "t") sprintf("<i>t</i>(%d)", x$dfs) else "<i>z</i>",
+        sprintf("%s = %s, %s", if (x$test %in% c("t", "knha", "adhoc")) sprintf("<i>t</i>(%d)", x$dfs) else "<i>z</i>",
                 .f2(x$zval), .ptxt(x$pval))),
       c("&tau;&sup2;", .f2(x$tau2), "", ""), c("<i>I</i>&sup2;", paste0(.f2(x$I2, 1), "%"), "", ""),
       c("<i>H</i>&sup2;", .f2(x$H2), "", ""),
@@ -492,13 +492,13 @@ nice_table <- function(x, digits = 3, caption = NULL, col_names = NULL, align = 
   }
   df <- data.frame(Term = rownames(x$b), b = .f2(x$b[, 1], 3), SE = .f2(x$se, 3),
                    t = .f2(x$zval), p = .pcell(x$pval), ci = .ci(x$ci.lb, x$ci.ub))
-  names(df) <- c("Term", "<i>b</i>", "<i>SE</i>", if (x$test == "t") "<i>t</i>" else "<i>z</i>", .PH, "95% CI")
+  names(df) <- c("Term", "<i>b</i>", "<i>SE</i>", if (x$test %in% c("t", "knha", "adhoc")) "<i>t</i>" else "<i>z</i>", .PH, "95% CI")
   tab <- .html_table(df, caption, c("l", "r", "r", "r", "r", "l"))
   .note(tab, c(
     sprintf("<i>k</i> = %d; residual &tau;&sup2; = %s; residual <i>I</i>&sup2; = %s%%; <i>R</i>&sup2; = %s%%.",
             x$k, .f2(x$tau2), .f2(x$I2, 1), ifelse(is.null(x$R2) || is.na(x$R2), "-", .f2(x$R2, 1))),
     sprintf("Test of moderators: %s = %s, %s; residual heterogeneity: <i>Q</i>(%d) = %s, %s.",
-            if (x$test == "t") sprintf("<i>F</i>(%d, %d)", x$QMdf[1], x$QMdf[2]) else sprintf("<i>QM</i>(%d)", x$QMdf[1]),
+            if (x$test %in% c("t", "knha", "adhoc")) sprintf("<i>F</i>(%d, %d)", x$QMdf[1], x$QMdf[2]) else sprintf("<i>QM</i>(%d)", x$QMdf[1]),
             .f2(x$QM), .ptxt(x$QMp), x$k - x$p, .f2(x$QE), .ptxt(x$QEp)),
     if (any(c(x$pval, x$QMp, x$QEp) < .05, na.rm = TRUE)) .SIG else ""))
 }
@@ -795,15 +795,24 @@ sec_asym <- function(cfg) {
 sec_lancaster <- function(cfg)
   .chunk(paste0(cfg$id, "-sens-lancaster-{r}"), 'sens_lancaster(cfg, "{r}")')
 
-sens_lancaster <- function(cfg, r) {
-  id <- reported_id(cfg)
-  dm <- model_data(cfg, load_es(es_file(cfg, r)), id)
-  dl <- model_data(cfg, load_es(es_file(cfg, r, LANC_DIR)), id)
+# all sensitivity models for one effect-size file (labels as shown in the table)
+TSUBA_LABEL <- "Excluding absolute cell counts - Tsubakihara et al. (2012)"
+sensitivity_fits <- function(dm, dl) {
   fits <- list(
     `Main analysis` = .fit(dm),
     `Lancaster et al. (2005) - <i>n</i> / 3` = .fit(dl),
     `Excluding crossover design - Lancaster et al. (2005)` = .fit(dplyr::filter(dm, !grepl("^Lancaster", Study)))
   )
+  if (any(grepl("^Tsubakihara", dm$Study)))
+    fits[[TSUBA_LABEL]] <- .fit(dplyr::filter(dm, !grepl("^Tsubakihara", Study)))
+  fits
+}
+
+sens_lancaster <- function(cfg, r) {
+  id <- reported_id(cfg)
+  dm <- model_data(cfg, load_es(es_file(cfg, r)), id)
+  dl <- model_data(cfg, load_es(es_file(cfg, r, LANC_DIR)), id)
+  fits <- sensitivity_fits(dm, dl)
   df <- do.call(rbind, lapply(names(fits), function(n) cbind(Analysis = n, .row_of(fits[[n]])[, 1:6])))
   names(df) <- c("Analysis", "<i>k</i>", "<i>g</i>", "95% CI", .PH, "&tau;&sup2;", "<i>I</i>&sup2;")
   tab <- .html_table(df, paste0("Sensitivity analyses - ", mlab(id)), c("l", "r", "r", "l", "r", "r", "r"))
@@ -897,10 +906,9 @@ chapter_downloads <- function(cfg, chain) {
     sheets$sensitivity <- do.call(rbind, lapply(R_VALUES, function(r) {
       dm <- model_data(cfg, load_es(es_file(cfg, r)), id)
       dl <- model_data(cfg, load_es(es_file(cfg, r, LANC_DIR)), id)
-      rbind(cbind(r = as.numeric(r) / 100, analysis = "Main analysis", num(.fit(dm))),
-            cbind(r = as.numeric(r) / 100, analysis = "Lancaster et al. (2005) - n / 3", num(.fit(dl))),
-            cbind(r = as.numeric(r) / 100, analysis = "Excluding crossover design - Lancaster et al. (2005)",
-                  num(.fit(dplyr::filter(dm, !grepl("^Lancaster", Study))))))
+      f <- sensitivity_fits(dm, dl)
+      do.call(rbind, lapply(names(f), function(n)
+        cbind(r = as.numeric(r) / 100, analysis = gsub("<[^>]+>", "", n), num(f[[n]]))))
     }))
   }
   xlsx <- file.path(DL_DIR, paste0(stem, "_results.xlsx"))
