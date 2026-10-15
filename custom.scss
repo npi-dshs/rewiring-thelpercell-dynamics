@@ -208,3 +208,9 @@ main .table > tbody > tr:hover > * { background: #F0F6FF; }
   .quarto-title-meta, .quarto-title-meta-author { grid-template-columns: minmax(0, 1fr) !important; }
   .quarto-title-meta p, .quarto-title-meta div { overflow-wrap: anywhere; }
 }
+
+/* extended sensitivity table */
+main .table.sens-ext thead tr:first-child th { border-bottom: 1px solid #9AA0A6 !important; font-size: .76rem; color: #5f6368; text-align: center; }
+main .table.sens-ext thead tr:first-child th:first-child { border-bottom: 0 !important; }
+main .table.sens-ext td:first-child { min-width: 17rem; }
+main .table.sens-ext thead tr:last-child th:last-child { min-width: 9rem; }

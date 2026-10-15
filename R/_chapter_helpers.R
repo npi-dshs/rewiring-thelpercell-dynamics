@@ -414,8 +414,14 @@ nice_table <- function(x, digits = 3, caption = NULL, col_names = NULL, align = 
 .note <- function(tab, txt) {
   txt <- txt[nzchar(txt)]
   if (!length(txt)) return(tab)
-  kableExtra::footnote(tab, general_title = "Note.", title_format = "italic",
-                       general = paste(txt, collapse = " "), footnote_as_chunk = TRUE, escape = FALSE)
+  tab <- kableExtra::footnote(tab, general_title = "Note.", title_format = "italic",
+                              general = paste(txt, collapse = " "), footnote_as_chunk = TRUE, escape = FALSE)
+  # kableExtra writes colspan="100%", which browsers treat as 1 column -> use the real column count
+  h <- as.character(tab)
+  last_head <- tail(strsplit(sub("</thead>.*", "", h), "<tr", fixed = TRUE)[[1]], 1)
+  n <- lengths(regmatches(last_head, gregexpr("<th", last_head, fixed = TRUE)))
+  if (n > 0) tab[] <- gsub('colspan="100%"', sprintf('colspan="%d"', n), h, fixed = TRUE)
+  tab
 }
 .html_table <- function(df, caption, align, cls = "table") {
   tab <- knitr::kable(df, format = "html", caption = caption, align = align, escape = FALSE,
@@ -808,16 +814,43 @@ sensitivity_fits <- function(dm, dl) {
   fits
 }
 
+# small-study diagnostics for one sensitivity model
+.small_study <- function(m) {
+  eg <- suppressWarnings(tryCatch(meta::metabias(m, method = "linreg"), error = function(e) NULL))
+  eg_ok <- !is.null(eg) && !is.null(eg$statistic)
+  d <- data.frame(yi = m$TE, vi = m$seTE^2)
+  tf <- tryCatch(metafor::trimfill(metafor::rma(yi = yi, vi = vi, data = d, method = "HE")), error = function(e) NULL)
+  list(eg_t = if (eg_ok) unname(eg$statistic) else NA, eg_df = if (eg_ok) unname(eg$df) else NA,
+       eg_p = if (eg_ok) unname(eg$pval) else NA,
+       tf_k0 = if (is.null(tf)) NA else tf$k0, tf_side = if (is.null(tf)) NA else tf$side,
+       tf_g = if (is.null(tf)) NA else tf$b[1], tf_lo = if (is.null(tf)) NA else tf$ci.lb,
+       tf_up = if (is.null(tf)) NA else tf$ci.ub)
+}
+
 sens_lancaster <- function(cfg, r) {
   id <- reported_id(cfg)
   dm <- model_data(cfg, load_es(es_file(cfg, r)), id)
   dl <- model_data(cfg, load_es(es_file(cfg, r, LANC_DIR)), id)
   fits <- sensitivity_fits(dm, dl)
-  df <- do.call(rbind, lapply(names(fits), function(n) cbind(Analysis = n, .row_of(fits[[n]])[, 1:6])))
-  names(df) <- c("Analysis", "<i>k</i>", "<i>g</i>", "95% CI", .PH, "&tau;&sup2;", "<i>I</i>&sup2;")
-  tab <- .html_table(df, paste0("Sensitivity analyses - ", mlab(id)), c("l", "r", "r", "l", "r", "r", "r"))
-  tab <- .note(tab, if (any(vapply(fits, function(m) m$pval.random < .05, logical(1)))) .SIG else "")
-  knitr::asis_output(paste0("\n```{=html}\n", as.character(tab), "\n```\n"))
+  df <- do.call(rbind, lapply(names(fits), function(n) {
+    m <- fits[[n]]; x <- .row_of(m); ss <- .small_study(m)
+    data.frame(a = n, k = x$k, g = x$g, ci = x$ci, p = x$p, pi = x$pi, tau2 = x$tau2, I2 = x$I2,
+               et = if (is.na(ss$eg_t)) "-" else .f2(ss$eg_t), edf = if (is.na(ss$eg_df)) "-" else ss$eg_df,
+               ep = if (is.na(ss$eg_p)) "-" else .pcell(ss$eg_p),
+               k0 = if (is.na(ss$tf_k0)) "-" else sprintf("%d (%s)", ss$tf_k0, ss$tf_side),
+               tg = if (is.na(ss$tf_g) || ss$tf_k0 == 0) "-" else paste(.f2(ss$tf_g), .ci(ss$tf_lo, ss$tf_up)))
+  }))
+  names(df) <- c("Analysis", "<i>k</i>", "<i>g</i>", "95% CI", .PH, "95% PI", "&tau;&sup2;", "<i>I</i>&sup2;",
+                 "<i>t</i>", "<i>df</i>", .PH, "<i>k</i><sub>0</sub>", "Adjusted <i>g</i> [95% CI]")
+  tab <- .html_table(df, paste0("Sensitivity analyses - ", mlab(id)),
+                     c("l", "r", "r", "l", "r", "l", "r", "r", "r", "r", "r", "l", "l"), "table sens-ext")
+  tab <- kableExtra::add_header_above(tab, c(" " = 1, "Pooled effect" = 7, "Egger's test" = 3, "Trim and fill" = 2),
+                                      escape = FALSE)
+  sig <- any(vapply(fits, function(m) m$pval.random < .05, logical(1))) ||
+    any(suppressWarnings(as.numeric(gsub("<[^>]+>|&lt;", "", df[[11]]))) < .05, na.rm = TRUE)
+  tab <- .note(tab, c("Egger's regression test requires <i>k</i> &ge; 10; trim and fill: random-effects model (HE), <i>k</i><sub>0</sub> = imputed studies (side).",
+                      if (sig) .SIG else ""))
+  knitr::asis_output(paste0('\n```{=html}\n<div class="table-scroll">', as.character(tab), "</div>\n```\n"))
 }
 
 ## ---- Shortcuts used in the chapter files ----------------------------------
@@ -908,7 +941,8 @@ chapter_downloads <- function(cfg, chain) {
       dl <- model_data(cfg, load_es(es_file(cfg, r, LANC_DIR)), id)
       f <- sensitivity_fits(dm, dl)
       do.call(rbind, lapply(names(f), function(n)
-        cbind(r = as.numeric(r) / 100, analysis = gsub("<[^>]+>", "", n), num(f[[n]]))))
+        cbind(r = as.numeric(r) / 100, analysis = gsub("<[^>]+>", "", n), num(f[[n]]),
+              as.data.frame(.small_study(f[[n]])))))
     }))
   }
   xlsx <- file.path(DL_DIR, paste0(stem, "_results.xlsx"))
